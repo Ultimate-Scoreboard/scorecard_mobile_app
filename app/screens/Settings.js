@@ -26,6 +26,7 @@ function Settings() {
   return (
     <Screen scroll={true}>
       <Header>Settings</Header>
+      <Divider />
       {settings.map((s, i) => {
         return (
           <View key={i}>

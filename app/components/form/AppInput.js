@@ -13,6 +13,7 @@ function AppInput({ value, onChange, placeholder, keyboardType, ...rest }) {
         value={value}
         onChangeText={onChange}
         placeholder={placeholder}
+        placeholderTextColor={defaultStyles.colors.info}
         keyboardType={keyboardType}
         {...rest}
       />

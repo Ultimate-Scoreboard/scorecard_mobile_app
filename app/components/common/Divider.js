@@ -11,7 +11,8 @@ const styles = StyleSheet.create({
   divider: {
     borderBottomColor: defaultStyles.colors.info,
     borderBottomWidth: 1,
-    margin: 5,
+    marginHorizontal: 5,
+    marginVertical: 10,
   },
 });
 

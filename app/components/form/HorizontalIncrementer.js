@@ -40,7 +40,7 @@ function HorizontalIncrementer({
             iconType="ant"
             color={theme.color}
             style={styles.left}
-            iconSize={25}
+            iconSize={30}
           />
         </TouchableOpacity>
         <View style={styles.third}>
@@ -56,7 +56,7 @@ function HorizontalIncrementer({
             iconType="ant"
             color={theme.color}
             style={styles.right}
-            iconSize={25}
+            iconSize={30}
           />
         </TouchableOpacity>
       </View>
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 23,
   },
   header: {
     fontSize: 16,
