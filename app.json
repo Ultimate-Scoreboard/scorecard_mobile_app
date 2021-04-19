@@ -33,7 +33,7 @@
         "backgroundImage": "./app/assets/logos/splashSquare.png"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "permisions": []
+      "permissions": []
     },
     "sdkVersion": "41.0.0",
     "web": {
