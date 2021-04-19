@@ -2,26 +2,38 @@
   "expo": {
     "name": "Scorecard",
     "slug": "Scorecard",
-    "version": "1.0.0",
+    "platforms": ["ios", "android", "web"],
+    "privacy": "public",
+    "version": "0.0.0",
     "orientation": "portrait",
+    "description": "An easy to use scorecard for game night",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/logos/scrabbleSplash.jpg",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#831fe0"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 5000
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.scorecard.ultimatescoreboard",
+      "icon": "./app/assets/logos/iconOnSplash.png",
+      "buildNumber": "1.0.0"
     },
     "android": {
+      "versionCode": 1,
+      "icon": "./app/assets/logos/iconOnSplash.png",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./app/assets/logos/adaptive-icon.png",
+        "backgroundImage": "./app/assets/logos/splashSquare.png"
+      },
+      "softwareKeyboardLayoutMode": "pan",
+      "permisions": []
     },
     "sdkVersion": "41.0.0",
     "web": {

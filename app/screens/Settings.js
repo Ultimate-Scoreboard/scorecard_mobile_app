@@ -1,8 +1,15 @@
 import React, { useContext } from "react";
-import { StyleSheet, View } from "react-native";
+import { View, Alert } from "react-native";
 
 import { storageFunctions } from "../functions";
-import { Screen, Header, DarkMode, ShowRounds, Divider } from "../components";
+import {
+  Screen,
+  Header,
+  DarkMode,
+  ShowRounds,
+  Divider,
+  BlockButton,
+} from "../components";
 import SettingsContext from "./../context/settingsContext";
 
 function Settings() {
@@ -32,6 +39,20 @@ function Settings() {
     }
   };
 
+  const alertReset = () => {
+    Alert.alert(
+      "Reset Everything",
+      "You are about to reset all settings and clear all saved scorecard information. Your current scorecard will remain available to continue until you close the app.\n\nDo you want to continue?",
+      [{ text: "No" }, { text: "Yes", onPress: () => handleReset() }],
+      { cancelable: true }
+    );
+  };
+  const handleReset = () => {
+    storageFunctions.clearAsyncStorage();
+    setDarkMode(false);
+    setShowRounds(false);
+  };
+
   const settings = [
     { Component: DarkMode, current: darkMode, onChange: handleToggleDarkMode },
     {
@@ -42,7 +63,10 @@ function Settings() {
   ];
 
   return (
-    <Screen scroll={true}>
+    <Screen
+      scroll={true}
+      footer={<BlockButton title="Reset And Clear" onPress={alertReset} />}
+    >
       <Header>Settings</Header>
       <Divider />
       {settings.map((s, i) => {
@@ -56,7 +80,5 @@ function Settings() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default Settings;
