@@ -18,21 +18,24 @@ function Home({ navigation }) {
   const [error, setError] = useState(null);
   const blankPlayer = {
     name: "",
+    points: [{ points: 0, set: 1 }],
+    history: [],
   };
 
   const handleSelectPage = () => {
     if (page === "form") {
       let currentPlayers = [];
       if (players.length === 0) {
-        currentPlayers = Array.from(
-          { length: numberOfPlayers },
-          () => blankPlayer
-        );
+        currentPlayers = Array.from({ length: numberOfPlayers }, () => {
+          return { ...blankPlayer };
+        });
       } else {
         const playersToAdd = numberOfPlayers - players.length;
         currentPlayers = [...players];
         if (playersToAdd > 0) {
-          const add = Array.from({ length: playersToAdd }, () => blankPlayer);
+          const add = Array.from({ length: playersToAdd }, () => {
+            return { ...blankPlayer };
+          });
           currentPlayers.push(...add);
         } else if (playersToAdd < 0) {
           currentPlayers.splice(numberOfPlayers);

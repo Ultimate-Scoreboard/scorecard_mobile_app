@@ -20,7 +20,7 @@ function TypeSelect({ type, setType }) {
     },
     {
       label: "Sets",
-      values: "sets",
+      value: "sets",
       text:
         "Keep the score in a set by set format. Useful for tennis, golf, etc.",
     },

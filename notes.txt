@@ -1,0 +1,12 @@
+Player Object: {
+	name: String,
+	points: Array[
+		Object: {
+			points: Integer,
+			set: Integer
+		},
+	]
+	history: Array [
+		Integer
+	]
+}

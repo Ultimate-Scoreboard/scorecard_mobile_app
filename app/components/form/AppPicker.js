@@ -23,7 +23,6 @@ function AppPicker({ title, options, selected, setSelected, placeholder }) {
           mode="dialog"
           prompt={placeholder}
         >
-          {/* <Picker.Item label={placeholder} value={null} /> */}
           {options.map((o) => {
             return (
               <Picker.Item key={o.value} label={o.label} value={o.value} />

@@ -11,4 +11,6 @@ export { default as Divider } from "./common/Divider";
 export { default as CreationForm } from "./home/CreationForm";
 export { default as EnterPlayers } from "./home/EnterPlayers";
 export { default as Error } from "./common/Error";
+export { default as Names } from "./scorecard/Names";
+export { default as HorizontalTabs } from "./common/HorizontalTabs";
 export { default as Incrementer } from "./scorecard/Incrementer";
