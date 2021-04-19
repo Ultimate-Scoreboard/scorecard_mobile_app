@@ -5,7 +5,7 @@ const capLetterOne = (string) => {
 
 const truncName = (name) => {
   if (name.length < 10) return name;
-  return name.slice(0, 10) + "...";
+  return name.slice(0, 10) + "\n" + name.slice(10, 18) + "...";
 };
 
 export default {

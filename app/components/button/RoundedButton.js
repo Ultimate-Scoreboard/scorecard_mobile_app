@@ -5,9 +5,11 @@ import ButtonText from "../text/ButtonText";
 import { defaultStyles, clicks } from "../../config";
 import IconRender from "../icon/IconRender";
 
-function RoundedButton({ onPress, size, icon, color }) {
+function RoundedButton({ onPress, size, icon, color, style }) {
   const height =
-    size === "small"
+    size === "tiny"
+      ? defaultStyles.sizes.buttonTiny
+      : size === "small"
       ? defaultStyles.sizes.buttonSmall
       : size === "medium"
       ? defaultStyles.sizes.buttonMedium
@@ -20,7 +22,6 @@ function RoundedButton({ onPress, size, icon, color }) {
   const backgroundColor = color
     ? defaultStyles.colors[color].backgroundColor
     : defaultStyles.colors.btnPrimary.backgroundColor;
-
   const styles = StyleSheet.create({
     button: {
       backgroundColor,
@@ -44,7 +45,7 @@ function RoundedButton({ onPress, size, icon, color }) {
     <View style={styles.container}>
       <TouchableOpacity
         activeOpacity={clicks.clickOpacity}
-        style={styles.button}
+        style={[styles.button, style]}
         onPress={onPress}
       >
         <IconRender

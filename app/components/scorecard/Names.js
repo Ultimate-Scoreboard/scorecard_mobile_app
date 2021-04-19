@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, TouchableOpacity } from "react-native";
+import { StyleSheet, View, ScrollView, TouchableOpacity } from "react-native";
 
 import AppText from "../text/AppText";
 import Divider from "../common/Divider";
@@ -9,20 +9,26 @@ import Incrementer from "./Incrementer";
 import IconRender from "./../icon/IconRender";
 import SettingsContext from "./../../context/settingsContext";
 import Tally from "./Tally";
+import NameEdit from "./NameEdit";
 
 function Names({
   score,
   setScore,
   selectedPlayer,
   setSelectedPlayer,
+  nameEdit,
+  setNameEdit,
+  onNameEdit,
   type,
   sortColumn,
   onSort,
 }) {
   const { theme } = useContext(SettingsContext);
-  const handleSelectPlayer = (_id) => {
-    if (selectedPlayer === _id) setSelectedPlayer(null);
-    else setSelectedPlayer(_id);
+  const handleSelectPlayer = (_id, name) => {
+    if (selectedPlayer === _id && name === nameEdit) {
+      setSelectedPlayer(null);
+    } else setSelectedPlayer(_id);
+    setNameEdit(name);
   };
 
   const renderSortIcon = (col) => {
@@ -36,7 +42,7 @@ function Names({
     type === "incrementer" ? Incrementer : type === "tally" ? Tally : null;
 
   return (
-    <>
+    <View>
       <View style={styles.container}>
         <TouchableOpacity
           style={styles._id}
@@ -95,7 +101,8 @@ function Names({
               ]}
               key={i}
               activeOpacity={clicks.clickOpacity}
-              onPress={() => handleSelectPlayer(p._id)}
+              onPress={() => handleSelectPlayer(p._id, false)}
+              onLongPress={() => handleSelectPlayer(p._id, true)}
             >
               <View style={[styles.text, styles._id]}>
                 <AppText
@@ -121,18 +128,21 @@ function Names({
                 <Score player={p} type={type} isSelected={isSelected} />
               </View>
             </TouchableOpacity>
-            {isSelected && (
-              <ScoreComponent
-                score={score}
-                setScore={setScore}
-                selectedPlayer={i}
-              />
-            )}
+            {isSelected &&
+              (!nameEdit ? (
+                <ScoreComponent
+                  score={score}
+                  setScore={setScore}
+                  selectedPlayer={i}
+                />
+              ) : (
+                <NameEdit player={p} onNameEdit={onNameEdit} />
+              ))}
             <Divider />
           </View>
         );
       })}
-    </>
+    </View>
   );
 }
 

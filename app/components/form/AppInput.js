@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, Keyboard } from "react-native";
 
 import SettingsContext from "./../../context/settingsContext";
 import { defaultStyles } from "../../config";
@@ -10,13 +10,14 @@ function AppInput({
   placeholder,
   keyboardType,
   forwardedRef,
+  style,
   ...rest
 }) {
   const { theme } = useContext(SettingsContext);
   return (
     <View style={styles.container}>
       <TextInput
-        style={[styles.text, defaultStyles.text, theme]}
+        style={[styles.text, defaultStyles.text, theme, style]}
         value={value}
         onChangeText={onChange}
         placeholder={placeholder}

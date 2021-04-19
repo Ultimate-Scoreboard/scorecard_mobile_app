@@ -18,12 +18,12 @@ function TypeSelect({ type, setType }) {
       text:
         "Add points after each round/move using a number input and keep a history of previous totals. Useful for games like scrabble or hearts.",
     },
-    {
-      label: "Sets",
-      value: "sets",
-      text:
-        "Keep the score in a set by set format. Useful for tennis, golf, etc.",
-    },
+    // {
+    //   label: "Sets",
+    //   value: "sets",
+    //   text:
+    //     "Keep the score in a set by set format. Useful for tennis, golf, etc.",
+    // },
   ];
 
   const selectedType = options.find((o) => o.value === type);

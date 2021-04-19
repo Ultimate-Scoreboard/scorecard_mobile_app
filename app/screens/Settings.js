@@ -2,11 +2,13 @@ import React, { useContext } from "react";
 import { StyleSheet, View } from "react-native";
 
 import { storageFunctions } from "../functions";
-import { Screen, Header, DarkMode, Divider } from "../components";
+import { Screen, Header, DarkMode, ShowRounds, Divider } from "../components";
 import SettingsContext from "./../context/settingsContext";
 
 function Settings() {
-  const { darkMode, setDarkMode } = useContext(SettingsContext);
+  const { darkMode, setDarkMode, showRounds, setShowRounds } = useContext(
+    SettingsContext
+  );
 
   const handleToggleDarkMode = async () => {
     const mode = await storageFunctions.getAsyncStorage("darkMode");
@@ -19,8 +21,24 @@ function Settings() {
     }
   };
 
+  const handleToggleShowRounds = async () => {
+    const mode = await storageFunctions.getAsyncStorage("showRounds");
+    if (mode) {
+      await storageFunctions.removeAsyncStorage("showRounds");
+      setShowRounds(false);
+    } else {
+      await storageFunctions.saveAsyncStorage("showRounds", "on");
+      setShowRounds(true);
+    }
+  };
+
   const settings = [
     { Component: DarkMode, current: darkMode, onChange: handleToggleDarkMode },
+    {
+      Component: ShowRounds,
+      current: showRounds,
+      onChange: handleToggleShowRounds,
+    },
   ];
 
   return (

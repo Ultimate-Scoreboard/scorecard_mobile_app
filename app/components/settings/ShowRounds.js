@@ -2,14 +2,14 @@ import React from "react";
 import { StyleSheet, View, Switch } from "react-native";
 
 import { defaultStyles } from "../../config";
-import AppText from "./../text/AppText";
+import AppText from "../text/AppText";
 
-function DarkMode({ current, onChange }) {
+function ShowRounds({ current, onChange }) {
   return (
     <>
       <View style={styles.container}>
         <View style={styles.textContainer}>
-          <AppText style={styles.text}>Dark Mode</AppText>
+          <AppText style={styles.text}>Show Round Numbers</AppText>
         </View>
         <View style={styles.switch}>
           <Switch
@@ -28,7 +28,7 @@ function DarkMode({ current, onChange }) {
         </View>
       </View>
       <AppText style={styles.subText}>
-        Toggle dark mode and go easy on your eyes
+        Whether to show round numbers on the history tab for a Tally scorecard
       </AppText>
     </>
   );
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DarkMode;
+export default ShowRounds;

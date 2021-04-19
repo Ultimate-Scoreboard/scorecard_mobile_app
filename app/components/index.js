@@ -6,6 +6,7 @@ export { default as SecondaryHeader } from "./text/SecondaryHeader";
 export { default as BlockButton } from "./button/BlockButton";
 export { default as RoundedButton } from "./button/RoundedButton";
 export { default as DarkMode } from "./settings/DarkMode";
+export { default as ShowRounds } from "./settings/ShowRounds";
 export { default as AppPicker } from "./form/AppPicker";
 export { default as Divider } from "./common/Divider";
 export { default as CreationForm } from "./home/CreationForm";

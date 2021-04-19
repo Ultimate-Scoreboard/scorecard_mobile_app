@@ -13,7 +13,7 @@ import routes from "../navigation/routes";
 
 function Home({ navigation }) {
   const [page, setPage] = useState("form");
-  const [type, setType] = useState("incrementer");
+  const [type, setType] = useState("tally");
   const [numberOfPlayers, setNumberOfPlayers] = useState(2);
   const [players, setPlayers] = useState([]);
   const [playersVisible, setPlayersVisible] = useState(false);

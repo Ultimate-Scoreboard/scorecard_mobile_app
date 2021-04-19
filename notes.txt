@@ -2,12 +2,14 @@ Player Object: {
 	name: String,
 	points: Array[
 		Object: {
-			points: Integer,
+			points: Number,
 			set: Integer
 		},
 	]
 	history: Array [
-		Integer
+		Object: {
+			points: Number,
+			round: Integer
 	]
 }
 

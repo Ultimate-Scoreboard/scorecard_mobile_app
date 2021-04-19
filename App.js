@@ -10,11 +10,14 @@ import { defaultStyles } from "./app/config";
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [showRounds, setShowRounds] = useState(false);
   const [isReady, setIsReady] = useState(false);
 
   const retrieveSettings = async () => {
     const darkMode = await storageFunctions.getAsyncStorage("darkMode");
     if (darkMode) setDarkMode(true);
+    const showRounds = await storageFunctions.getAsyncStorage("showRounds");
+    if (showRounds) setShowRounds(true);
   };
 
   useEffect(() => {
@@ -40,6 +43,8 @@ export default function App() {
               ? defaultStyles.colors.light
               : defaultStyles.colors.dark,
           },
+          showRounds,
+          setShowRounds,
         }}
       >
         <MainNavigator />

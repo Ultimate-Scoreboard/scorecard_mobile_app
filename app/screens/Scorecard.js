@@ -19,6 +19,7 @@ function Scorecard({ navigation, route }) {
   const [score, setScore] = useState([]);
   const [type, setType] = useState("incrementer");
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [nameEdit, setNameEdit] = useState(false);
   const [sortColumn, setSortColumn] = useState({
     path: "",
     order: "",
@@ -27,7 +28,7 @@ function Scorecard({ navigation, route }) {
 
   const tabs = [
     { name: "home", icon: "clipboard-text", iconType: "material" },
-    { name: "settings", icon: "ellipsis", iconType: "oct" },
+    { name: "help", icon: "help-circle", iconType: "material" },
   ];
   if (type === "tally")
     tabs.splice(1, 0, { name: "history", icon: "history", iconType: "font" });
@@ -38,6 +39,7 @@ function Scorecard({ navigation, route }) {
 
   const checkForExistingCard = async () => {
     setError(null);
+    // storageFunctions.clearAsyncStorage();
     let currentScore = await storageFunctions.getAsyncStorage("score");
     let currentType = await storageFunctions.getAsyncStorage("type");
     if (currentScore && currentType) {
@@ -67,12 +69,14 @@ function Scorecard({ navigation, route }) {
     newScore = newScore.map((p) => JSON.stringify(p));
     await storageFunctions.saveAsyncStorage("score", JSON.stringify(newScore));
     await storageFunctions.saveAsyncStorage("type", route.params.type);
+    setTab("home");
   };
 
   const retrieveScore = async (currentScore, currentType) => {
     currentScore = JSON.parse(currentScore);
     setScore(currentScore.map((p) => JSON.parse(p)));
     setType(currentType);
+    setTab("home");
   };
 
   useEffect(() => {
@@ -88,30 +92,45 @@ function Scorecard({ navigation, route }) {
     setTab(tab.name);
   };
 
-  const handleSetScore = async (value) => {
-    if (!selectedPlayer && selectedPlayer !== 0) return;
+  const spreadToEdit = (player) => {
     let currentScore = [...score];
-    const index = currentScore.findIndex((p) => p._id == selectedPlayer);
-    let player = { ...currentScore[index] };
-    if (type === "incrementer") {
-      player.points = [{ set: 1, points: value }];
-    }
-    if (type === "tally") {
-      player.points = [
-        { set: 1, points: Number(player.points[0].points) + Number(value) },
-      ];
-      let history = [...player.history];
-      history.push({ round: history.length + 1, points: Number(value) });
-      player.history = history;
-      setSelectedPlayer(null);
-    }
-    currentScore.splice(index, 1, player);
-    setScore(currentScore);
-    currentScore = currentScore.map((p) => JSON.stringify(p));
+    const index = currentScore.findIndex((p) => p._id == player._id);
+    let currentPlayer = { ...currentScore[index] };
+    return { currentScore, index, currentPlayer };
+  };
+
+  const saveScore = async (updatedScore) => {
+    setScore(updatedScore);
+    updatedScore = updatedScore.map((p) => JSON.stringify(p));
     await storageFunctions.saveAsyncStorage(
       "score",
-      JSON.stringify(currentScore)
+      JSON.stringify(updatedScore)
     );
+  };
+
+  const handleSetScore = async (value) => {
+    if (!value) return setSelectedPlayer(null);
+    if (!selectedPlayer && selectedPlayer !== 0) return;
+    let { currentScore, index, currentPlayer } = spreadToEdit({
+      _id: selectedPlayer,
+    });
+    if (type === "incrementer") {
+      currentPlayer.points = [{ set: 1, points: value }];
+    }
+    if (type === "tally") {
+      currentPlayer.points = [
+        {
+          set: 1,
+          points: Number(currentPlayer.points[0].points) + Number(value),
+        },
+      ];
+      let history = [...currentPlayer.history];
+      history.push({ round: history.length + 1, points: Number(value) });
+      currentPlayer.history = history;
+      setSelectedPlayer(null);
+    }
+    currentScore.splice(index, 1, currentPlayer);
+    await saveScore(currentScore);
   };
 
   const alertResetScores = () => {
@@ -155,23 +174,23 @@ function Scorecard({ navigation, route }) {
     getPlayers(newSortColumn);
   };
 
-  const alertUndo = (player, index) => {
+  const alertUndo = (player, historyIndex) => {
     Alert.alert(
       "Undo Score",
-      `Remove round ${index + 1} score of ${player.history[index].points} for ${
-        player.name
-      }?`,
+      `Remove round ${historyIndex + 1} score of ${
+        player.history[historyIndex].points
+      } for ${player.name}?`,
       [
         { text: "No" },
-        { text: "Yes", onPress: () => handleUndo(player, index) },
+        { text: "Yes", onPress: () => handleUndo(player, historyIndex) },
       ],
       { cancelable: true }
     );
   };
   const handleUndo = async (player, index) => {
-    let currentScore = [...score];
-    let playerIndex = currentScore.findIndex((p) => p._id === player._id);
-    let currentPlayer = { ...currentScore[playerIndex] };
+    const { currentScore, index: playerIndex, currentPlayer } = spreadToEdit(
+      player
+    );
     let history = [...currentPlayer.history];
     currentPlayer.points = [
       {
@@ -182,12 +201,51 @@ function Scorecard({ navigation, route }) {
     history.splice(index, 1);
     currentPlayer.history = history;
     currentScore.splice(playerIndex, 1, currentPlayer);
-    setScore(currentScore);
-    currentScore = currentScore.map((p) => JSON.stringify(p));
-    await storageFunctions.saveAsyncStorage(
-      "score",
-      JSON.stringify(currentScore)
-    );
+    await saveScore(currentScore);
+  };
+
+  const setScoreFromHistory = async (player, historyIndex, value) => {
+    let { currentScore, index, currentPlayer } = spreadToEdit(player);
+    let history = [...currentPlayer.history];
+    if (!value) {
+      if (history.length <= historyIndex) return;
+      else return alertUndo(player, historyIndex);
+    }
+    let newTotal = 0;
+    if (historyIndex === history.length) {
+      newTotal = currentPlayer.points[0].points + Number(value);
+      history.push({ round: historyIndex, points: Number(value) });
+    } else {
+      newTotal =
+        currentPlayer.points[0].points -
+        history[historyIndex].points +
+        Number(value);
+      history.splice(historyIndex, 1, {
+        round: historyIndex + 1,
+        points: Number(value),
+      });
+    }
+    currentPlayer.points = [
+      {
+        set: 1,
+        points: newTotal,
+      },
+    ];
+    currentPlayer.history = history;
+    currentScore.splice(index, 1, currentPlayer);
+    await saveScore(currentScore);
+  };
+
+  const handleNameEdit = async (name) => {
+    if (!name) return setSelectedPlayer(null);
+    if (!selectedPlayer && selectedPlayer !== 0) return;
+    let { currentScore, index, currentPlayer } = spreadToEdit({
+      _id: selectedPlayer,
+    });
+    currentPlayer.name = name;
+    currentScore.splice(index, 1, currentPlayer);
+    setSelectedPlayer(null);
+    await saveScore(currentScore);
   };
 
   const getPlayers = (newSortColumn) => {
@@ -252,14 +310,23 @@ function Scorecard({ navigation, route }) {
                 setScore={handleSetScore}
                 selectedPlayer={selectedPlayer}
                 setSelectedPlayer={setSelectedPlayer}
+                nameEdit={nameEdit}
+                onNameEdit={handleNameEdit}
+                setNameEdit={setNameEdit}
                 type={type}
                 sortColumn={sortColumn}
                 onSort={handleSort}
               />
             </>
           )}
-          {tab === "history" && <History score={score} onSelect={alertUndo} />}
-          {tab === "settings" && (
+          {tab === "history" && (
+            <History
+              score={score}
+              onCompleteEdit={setScoreFromHistory}
+              onUndoRound={alertUndo}
+            />
+          )}
+          {tab === "help" && (
             <ScorecardSettings onResetScore={alertResetScores} />
           )}
         </>
