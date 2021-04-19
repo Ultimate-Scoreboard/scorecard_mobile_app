@@ -7,6 +7,7 @@ import {
   CreationForm,
   EnterPlayers,
   Error,
+  BlockButton,
 } from "../components";
 import routes from "../navigation/routes";
 
@@ -15,6 +16,7 @@ function Home({ navigation }) {
   const [type, setType] = useState("incrementer");
   const [numberOfPlayers, setNumberOfPlayers] = useState(2);
   const [players, setPlayers] = useState([]);
+  const [playersVisible, setPlayersVisible] = useState(false);
   const [error, setError] = useState(null);
   const blankPlayer = {
     name: "",
@@ -22,27 +24,32 @@ function Home({ navigation }) {
     history: [],
   };
 
-  const handleSelectPage = () => {
-    if (page === "form") {
-      let currentPlayers = [];
-      if (players.length === 0) {
-        currentPlayers = Array.from({ length: numberOfPlayers }, () => {
+  const addPlayers = (returnArray) => {
+    let currentPlayers = [];
+    if (players.length === 0) {
+      currentPlayers = Array.from({ length: numberOfPlayers }, () => {
+        return { ...blankPlayer };
+      });
+    } else {
+      const playersToAdd = numberOfPlayers - players.length;
+      currentPlayers = [...players];
+      if (playersToAdd > 0) {
+        const add = Array.from({ length: playersToAdd }, () => {
           return { ...blankPlayer };
         });
-      } else {
-        const playersToAdd = numberOfPlayers - players.length;
-        currentPlayers = [...players];
-        if (playersToAdd > 0) {
-          const add = Array.from({ length: playersToAdd }, () => {
-            return { ...blankPlayer };
-          });
-          currentPlayers.push(...add);
-        } else if (playersToAdd < 0) {
-          currentPlayers.splice(numberOfPlayers);
-        }
+        currentPlayers.push(...add);
+      } else if (playersToAdd < 0) {
+        currentPlayers.splice(numberOfPlayers);
       }
-      setPlayers(currentPlayers);
-      setPage("players");
+    }
+    setPlayers(currentPlayers);
+    if (returnArray) return currentPlayers;
+  };
+
+  const handleSelectPage = () => {
+    if (page === "form") {
+      addPlayers();
+      setPlayersVisible(true);
     } else if (page === "players") setPage("form");
   };
 
@@ -62,11 +69,18 @@ function Home({ navigation }) {
     setPlayers(blankPlayers);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = (source) => {
     setError(null);
-    const haveNames = players.every((p) => p.name !== "");
-    if (!haveNames) return setError("All players must be given a name");
-    navigation.navigate(routes.SCORECARD, { type, players });
+    let currentPlayers = [...players];
+    if (source === "form") currentPlayers = addPlayers(true);
+    let finalPlayers = [];
+    currentPlayers.forEach((p, i) => {
+      let player = { ...p };
+      if (player.name === "") player.name = `Player ${String(i + 1)}`;
+      player._id = i;
+      finalPlayers.push(player);
+    });
+    navigation.navigate(routes.SCORECARD, { type, players: finalPlayers });
   };
 
   return (
@@ -78,26 +92,29 @@ function Home({ navigation }) {
           {error && <Error>{error}</Error>}
         </>
       }
+      footer={
+        <BlockButton
+          title="Start"
+          color="btnInfo"
+          onPress={() => handleConfirm("form")}
+        />
+      }
     >
-      {page === "form" && (
-        <CreationForm
-          type={type}
-          setType={setType}
-          numberOfPlayers={numberOfPlayers}
-          setNumberOfPlayers={setNumberOfPlayers}
-          onNext={handleSelectPage}
-        />
-      )}
-      {page === "players" && (
-        <EnterPlayers
-          onPrevious={handleSelectPage}
-          onConfirm={handleConfirm}
-          players={players}
-          onEditPlayer={handleEditPlayer}
-          onResetNames={handleResetNames}
-          type={type}
-        />
-      )}
+      <CreationForm
+        type={type}
+        setType={setType}
+        numberOfPlayers={numberOfPlayers}
+        setNumberOfPlayers={setNumberOfPlayers}
+        onNext={handleSelectPage}
+      />
+      <EnterPlayers
+        onConfirm={handleConfirm}
+        players={players}
+        onEditPlayer={handleEditPlayer}
+        onResetNames={handleResetNames}
+        visible={playersVisible}
+        setVisible={setPlayersVisible}
+      />
     </Screen>
   );
 }

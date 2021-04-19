@@ -32,8 +32,9 @@ function HorizontalIncrementer({
       <View style={styles.container}>
         <TouchableOpacity
           activeOpacity={clicks.clickOpacity}
-          style={styles.third}
+          style={styles.button}
           onPress={() => handleIncrement(-1)}
+          onLongPress={() => handleIncrement(-10)}
         >
           <IconRender
             icon="caretleft"
@@ -43,13 +44,14 @@ function HorizontalIncrementer({
             iconSize={30}
           />
         </TouchableOpacity>
-        <View style={styles.third}>
+        <View style={styles.value}>
           <AppText style={styles.text}>{String(value)}</AppText>
         </View>
         <TouchableOpacity
           activeOpacity={clicks.clickOpacity}
-          style={styles.third}
+          style={styles.button}
           onPress={() => handleIncrement(1)}
+          onLongPress={() => handleIncrement(10)}
         >
           <IconRender
             icon="caretright"
@@ -69,8 +71,11 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
   },
-  third: {
-    flex: 1 / 3,
+  button: {
+    flex: 0.4,
+  },
+  value: {
+    flex: 0.2,
   },
   left: {
     position: "absolute",

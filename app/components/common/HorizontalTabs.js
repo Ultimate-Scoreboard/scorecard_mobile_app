@@ -6,7 +6,7 @@ import AppText from "../text/AppText";
 import { allowables } from "../../functions";
 import IconRender from "../icon/IconRender";
 
-function HorizontalTabs({ tabs, onSelect, selected, perRow }) {
+function HorizontalTabs({ tabs, onSelect, selected, perRow, hideTitles }) {
   const { width } = defaultStyles.sizes.screenDimensions;
   const numberOfRows = perRow
     ? (tabs.length - (tabs.length % perRow)) / perRow + 1
@@ -42,20 +42,22 @@ function HorizontalTabs({ tabs, onSelect, selected, perRow }) {
                         : defaultStyles.colors.holdLight
                     }
                   />
-                  <AppText
-                    style={[
-                      styles.text,
-                      {
-                        backgroundColor: defaultStyles.colors.info,
-                        color: defaultStyles.colors.holdLight,
-                      },
-                      isSelected
-                        ? { color: defaultStyles.colors.holdDark }
-                        : {},
-                    ]}
-                  >
-                    {allowables.capLetterOne(tab.name)}
-                  </AppText>
+                  {!hideTitles && (
+                    <AppText
+                      style={[
+                        styles.text,
+                        {
+                          backgroundColor: defaultStyles.colors.info,
+                          color: defaultStyles.colors.holdLight,
+                        },
+                        isSelected
+                          ? { color: defaultStyles.colors.holdDark }
+                          : {},
+                      ]}
+                    >
+                      {allowables.capLetterOne(tab.name)}
+                    </AppText>
+                  )}
                 </TouchableOpacity>
               );
             })}

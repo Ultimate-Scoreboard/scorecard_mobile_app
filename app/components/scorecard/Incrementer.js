@@ -13,12 +13,20 @@ function Incrementer({ score, setScore, selectedPlayer }) {
       header={score[selectedPlayer].name}
     />
   ) : (
-    <View></View>
+    <View>
+      <AppText style={styles.text}>
+        Select a player/team to update score
+      </AppText>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {},
+  text: {
+    textAlign: "center",
+    marginHorizontal: 10,
+  },
 });
 
 export default Incrementer;

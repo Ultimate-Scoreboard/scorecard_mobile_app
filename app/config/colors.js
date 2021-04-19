@@ -20,6 +20,6 @@ export default {
   danger,
   btnPrimary: { backgroundColor: primary, color: light },
   btnInfo: { backgroundColor: info, color: light },
-  btnLight: { backgroundColor: light, color: dark },
+  btnLight: { backgroundColor: light, color: info },
   btnSuccess: { backgroundColor: success, color: light },
 };

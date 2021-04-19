@@ -14,3 +14,5 @@ export { default as Error } from "./common/Error";
 export { default as Names } from "./scorecard/Names";
 export { default as HorizontalTabs } from "./common/HorizontalTabs";
 export { default as Incrementer } from "./scorecard/Incrementer";
+export { default as ScorecardSettings } from "./scorecard/ScorecardSettings";
+export { default as History } from "./scorecard/History";

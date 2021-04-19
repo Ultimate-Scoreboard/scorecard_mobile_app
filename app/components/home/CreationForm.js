@@ -22,7 +22,7 @@ function CreationForm({
         setNumberOfPlayers={setNumberOfPlayers}
       />
       <Divider />
-      <BlockButton title="Enter Players" color="btnInfo" onPress={onNext} />
+      <BlockButton title="Enter Names" color="btnInfo" onPress={onNext} />
     </>
   );
 }

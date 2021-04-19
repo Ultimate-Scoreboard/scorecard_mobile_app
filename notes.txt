@@ -10,3 +10,6 @@ Player Object: {
 		Integer
 	]
 }
+
+
+undo score should be edit

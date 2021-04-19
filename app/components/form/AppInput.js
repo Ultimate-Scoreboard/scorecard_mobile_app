@@ -4,7 +4,14 @@ import { StyleSheet, View, TextInput } from "react-native";
 import SettingsContext from "./../../context/settingsContext";
 import { defaultStyles } from "../../config";
 
-function AppInput({ value, onChange, placeholder, keyboardType, ...rest }) {
+function AppInput({
+  value,
+  onChange,
+  placeholder,
+  keyboardType,
+  forwardedRef,
+  ...rest
+}) {
   const { theme } = useContext(SettingsContext);
   return (
     <View style={styles.container}>
@@ -16,6 +23,7 @@ function AppInput({ value, onChange, placeholder, keyboardType, ...rest }) {
         placeholderTextColor={defaultStyles.colors.info}
         keyboardType={keyboardType}
         {...rest}
+        ref={forwardedRef ? forwardedRef : null}
       />
     </View>
   );
