@@ -7,10 +7,10 @@
     "version": "0.0.0",
     "orientation": "portrait",
     "description": "An easy to use scorecard for game night",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logos/iconOnSplash.png",
     "splash": {
       "image": "./assets/logos/scrabbleSplash.jpg",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#831fe0"
     },
     "updates": {
@@ -26,6 +26,7 @@
       "buildNumber": "1.0.0"
     },
     "android": {
+      "package": "com.scorecard.ultimatescoreboard",
       "versionCode": 1,
       "icon": "./app/assets/logos/iconOnSplash.png",
       "adaptiveIcon": {
@@ -35,7 +36,7 @@
       "softwareKeyboardLayoutMode": "pan",
       "permissions": []
     },
-    "sdkVersion": "41.0.0",
+    "sdkVersion": "40.0.0",
     "web": {
       "favicon": "./assets/favicon.png"
     }
