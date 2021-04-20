@@ -11,7 +11,7 @@ import {
   History,
   ScorecardSettings,
 } from "./../components";
-import { storageFunctions } from "../functions";
+import { storageFunctions, allowables } from "../functions";
 import routes from "../navigation/routes";
 
 function Scorecard({ navigation, route }) {
@@ -39,7 +39,6 @@ function Scorecard({ navigation, route }) {
 
   const checkForExistingCard = async () => {
     setError(null);
-    // storageFunctions.clearAsyncStorage();
     let currentScore = await storageFunctions.getAsyncStorage("score");
     let currentType = await storageFunctions.getAsyncStorage("type");
     if (currentScore && currentType) {
@@ -248,6 +247,45 @@ function Scorecard({ navigation, route }) {
     await saveScore(currentScore);
   };
 
+  const handleRemovePlayer = async (player) => {
+    let { currentScore, index } = spreadToEdit(player);
+    if (currentScore.length <= 1)
+      return Alert.alert(
+        "Cannot Remove Player",
+        "This is the last player remaining on the scorecard. They cannot be removed",
+        [{ text: "OK" }],
+        { cancelable: true }
+      );
+    Alert.alert(
+      "Remove Player",
+      `You are about to remove ${player.name} from the scorecard. This cannot be undone.\n\nAre you sure?`,
+      [
+        { text: "No" },
+        {
+          text: "Yes",
+          onPress: async () => {
+            currentScore.splice(index, 1);
+            setSelectedPlayer(null);
+            await saveScore(currentScore);
+          },
+        },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const handleAddPlayer = async () => {
+    let currentScore = [...score];
+    let newPlayer = { ...allowables.blankPlayer };
+    const highIndex = score.map((p) => p._id).reduce((p, c) => (p > c ? p : c));
+    if (!highIndex && highIndex !== 0) newPlayer._id = score.length;
+    else newPlayer._id = highIndex + 1;
+    newPlayer.name = "Player " + String(newPlayer._id + 1);
+    currentScore.push(newPlayer);
+    setSelectedPlayer(null);
+    await saveScore(currentScore);
+  };
+
   const getPlayers = (newSortColumn) => {
     let players = [...score];
     if (newSortColumn.path === "points")
@@ -291,6 +329,16 @@ function Scorecard({ navigation, route }) {
           />
         </>
       }
+      footer={
+        tab === "home" && (
+          <BlockButton
+            title="Add Player"
+            size="small"
+            color="btnInfo"
+            onPress={handleAddPlayer}
+          />
+        )
+      }
     >
       {error ? (
         <>
@@ -316,6 +364,7 @@ function Scorecard({ navigation, route }) {
                 type={type}
                 sortColumn={sortColumn}
                 onSort={handleSort}
+                onRemovePlayer={handleRemovePlayer}
               />
             </>
           )}

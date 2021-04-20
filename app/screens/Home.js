@@ -10,6 +10,7 @@ import {
   BlockButton,
 } from "../components";
 import routes from "../navigation/routes";
+import { allowables } from "../functions";
 
 function Home({ navigation }) {
   const [page, setPage] = useState("form");
@@ -18,24 +19,19 @@ function Home({ navigation }) {
   const [players, setPlayers] = useState([]);
   const [playersVisible, setPlayersVisible] = useState(false);
   const [error, setError] = useState(null);
-  const blankPlayer = {
-    name: "",
-    points: [{ points: 0, set: 1 }],
-    history: [],
-  };
 
   const addPlayers = (returnArray) => {
     let currentPlayers = [];
     if (players.length === 0) {
       currentPlayers = Array.from({ length: numberOfPlayers }, () => {
-        return { ...blankPlayer };
+        return { ...allowables.blankPlayer };
       });
     } else {
       const playersToAdd = numberOfPlayers - players.length;
       currentPlayers = [...players];
       if (playersToAdd > 0) {
         const add = Array.from({ length: playersToAdd }, () => {
-          return { ...blankPlayer };
+          return { ...allowables.blankPlayer };
         });
         currentPlayers.push(...add);
       } else if (playersToAdd < 0) {
@@ -62,10 +58,9 @@ function Home({ navigation }) {
   };
 
   const handleResetNames = () => {
-    const blankPlayers = Array.from(
-      { length: numberOfPlayers },
-      () => blankPlayer
-    );
+    const blankPlayers = Array.from({ length: numberOfPlayers }, () => {
+      return { ...allowables.blankPlayer };
+    });
     setPlayers(blankPlayers);
   };
 

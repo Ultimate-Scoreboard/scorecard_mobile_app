@@ -10,6 +10,8 @@ import IconRender from "./../icon/IconRender";
 import SettingsContext from "./../../context/settingsContext";
 import Tally from "./Tally";
 import NameEdit from "./NameEdit";
+import RoundedButton from "../button/RoundedButton";
+import BlockButton from "./../button/BlockButton";
 
 function Names({
   score,
@@ -19,6 +21,7 @@ function Names({
   nameEdit,
   setNameEdit,
   onNameEdit,
+  onRemovePlayer,
   type,
   sortColumn,
   onSort,
@@ -136,7 +139,21 @@ function Names({
                   selectedPlayer={i}
                 />
               ) : (
-                <NameEdit player={p} onNameEdit={onNameEdit} />
+                <View style={styles.container}>
+                  <View style={styles.nameEdit}>
+                    <NameEdit player={p} onNameEdit={onNameEdit} />
+                  </View>
+                  {score.length > 1 && (
+                    <View style={styles.deleteButton}>
+                      <RoundedButton
+                        icon={{ icon: "delete", iconType: "material" }}
+                        size="small"
+                        color="btnLight"
+                        onPress={() => onRemovePlayer(p)}
+                      />
+                    </View>
+                  )}
+                </View>
               ))}
             <Divider />
           </View>
@@ -173,6 +190,14 @@ const styles = StyleSheet.create({
   },
   smallText: {
     fontSize: 14,
+  },
+  nameEdit: {
+    flex: 0.8,
+  },
+  deleteButton: {
+    flex: 0.2,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

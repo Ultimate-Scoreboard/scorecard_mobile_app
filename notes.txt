@@ -1,17 +1,19 @@
-Player Object: {
-	name: String,
-	points: Array[
-		Object: {
-			points: Number,
-			set: Integer
-		},
-	]
-	history: Array [
-		Object: {
-			points: Number,
-			round: Integer
-	]
-}
+Track your game night with this versatile scorekeeper
 
 
-undo score should be edit
+The perfect app for your next game night.
+
+-Track the scores of 1-99 players, either in a Tally style (think Scrabble scoring) or a simple counter.
+-Edit names inside the scorecard without having to start over..
+-Add or remove players as needed without losing the scores of other players.
+-Edit individual round scores or delete them altogether.
+-Sort the scorecard by points or name, or revert to the original order you entered the players.
+-At the end of your game you can reset the scores to zero and start over without re-entering all the player names.
+-Dark mode is available for easier viewing.
+
+
+
+-----
+should be able to add ot remove players mid card
+should be able to add more players, up to 20? no cutoff? nvm, up to 99
+think about adding set scorer, but they can realistically just use the tally type

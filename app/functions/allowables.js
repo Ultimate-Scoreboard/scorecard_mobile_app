@@ -8,7 +8,14 @@ const truncName = (name) => {
   return name.slice(0, 10) + "\n" + name.slice(10, 18) + "...";
 };
 
+const blankPlayer = {
+  name: "",
+  points: [{ points: 0, set: 1 }],
+  history: [],
+};
+
 export default {
   capLetterOne,
   truncName,
+  blankPlayer,
 };

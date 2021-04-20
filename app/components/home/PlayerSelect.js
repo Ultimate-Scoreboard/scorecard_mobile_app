@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
 
 import HorizontalIncrementer from "./../form/HorizontalIncrementer";
 
@@ -10,12 +9,10 @@ function PlayerSelect({ numberOfPlayers, setNumberOfPlayers }) {
       setValue={setNumberOfPlayers}
       increment={1}
       min={1}
-      max={8}
+      max={99}
       header="Number of players/teams"
     />
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default PlayerSelect;

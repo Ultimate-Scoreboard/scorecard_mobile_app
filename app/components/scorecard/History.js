@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   column: {
     marginTop: 10,
     width: 80,
-    marginHorizontal: -5,
+    marginHorizontal: 0,
   },
   round: {
     marginTop: 10,
