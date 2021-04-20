@@ -7,7 +7,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "description": "An easy to use scorecard for game night",
-    "icon": "./assets/logos/iconOnSplash.png",
+    "icon": "./assets/logos/icon.png",
     "splash": {
       "image": "./assets/logos/scrabbleSplash.jpg",
       "resizeMode": "cover",
@@ -22,13 +22,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.scorecard.ultimatescoreboard",
-      "icon": "./app/assets/logos/iconOnSplash.png",
+      "icon": "./app/assets/logos/icon.png",
       "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.scorecard.ultimatescoreboard",
       "versionCode": 2,
-      "icon": "./app/assets/logos/iconOnSplash.png",
+      "icon": "./app/assets/logos/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/logos/adaptive-icon.png",
         "backgroundImage": "./app/assets/logos/splashSquare.png"
