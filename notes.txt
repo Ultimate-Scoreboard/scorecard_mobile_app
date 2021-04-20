@@ -11,7 +11,7 @@ The perfect app for your next game night.
 -At the end of your game you can reset the scores to zero and start over without re-entering all the player names.
 -Dark mode is available for easier viewing.
 
-
+adsfdf
 
 -----
 should be able to add ot remove players mid card
