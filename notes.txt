@@ -3,8 +3,8 @@ Track your game night with this versatile scorekeeper
 
 The perfect app for your next game night.
 
--Track the scores of 1-99 players, either in a Tally style (think Scrabble scoring) or a simple counter.
--Edit names inside the scorecard without having to start over..
+-Track the scores of 1-99 players, either in a Tally style (like Scrabble scoring) or a simple counter.
+-Edit names inside the scorecard without having to start over.
 -Add or remove players as needed without losing the scores of other players.
 -Edit individual round scores or delete them altogether.
 -Sort the scorecard by points or name, or revert to the original order you entered the players.
