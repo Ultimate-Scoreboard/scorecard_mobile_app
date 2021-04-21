@@ -330,7 +330,8 @@ function Scorecard({ navigation, route }) {
         </>
       }
       footer={
-        tab === "home" && (
+        tab === "home" &&
+        score.length > 0 && (
           <BlockButton
             title="Add Player"
             size="small"
