@@ -2,11 +2,7 @@
   "expo": {
     "name": "Scorecard",
     "slug": "Scorecard",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ],
+    "platforms": ["ios", "android", "web"],
     "privacy": "public",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,17 +18,15 @@
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 5000
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.scorecard.ultimatescoreboard",
+      "bundleIdentifier": "com.scorecard.small.ultimatescoreboard",
       "icon": "./app/assets/logos/icon.png",
       "buildNumber": "1.0.0"
     },
     "android": {
-      "package": "com.scorecard.ultimatescoreboard",
+      "package": "com.scorecard.small.ultimatescoreboard",
       "versionCode": 2,
       "icon": "./app/assets/logos/icon.png",
       "adaptiveIcon": {

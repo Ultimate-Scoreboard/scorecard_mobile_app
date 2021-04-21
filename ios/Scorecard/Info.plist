@@ -61,7 +61,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>com.scorecard.ultimatescoreboard</string>
+          <string>com.scorecard.small.ultimatescoreboard</string>
         </array>
       </dict>
     </array>
