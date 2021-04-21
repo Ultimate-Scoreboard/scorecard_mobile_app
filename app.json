@@ -27,7 +27,7 @@
     },
     "android": {
       "package": "com.scorecard.small.ultimatescoreboard",
-      "versionCode": 2,
+      "versionCode": 3,
       "icon": "./app/assets/logos/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/logos/adaptive-icon.png",
