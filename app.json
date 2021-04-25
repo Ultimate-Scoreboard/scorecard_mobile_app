@@ -4,7 +4,7 @@
     "slug": "Scorecard",
     "platforms": ["ios", "android", "web"],
     "privacy": "public",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "description": "An easy to use scorecard for game night",
     "icon": "./assets/logos/icon.png",
@@ -22,23 +22,23 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.scorecard.ultimatescoreboard",
-      "icon": "./app/assets/logos/icon.png",
+      "icon": "./assets/logos/icon.png",
       "buildNumber": "1.0.0"
     },
     "android": {
       "package": "com.scorecard.ultimatescoreboard",
-      "versionCode": 2,
-      "icon": "./app/assets/logos/icon.png",
+      "versionCode": 5,
+      "icon": "./assets/logos/icon.png",
       "adaptiveIcon": {
-        "foregroundImage": "./app/assets/logos/adaptive-icon.png",
-        "backgroundImage": "./app/assets/logos/splashSquare.png"
+        "foregroundImage": "./assets/logos/adaptive-icon.png",
+        "backgroundImage": "./assets/logos/splashSquare.png"
       },
       "softwareKeyboardLayoutMode": "pan",
       "permissions": []
     },
     "sdkVersion": "40.0.0",
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     }
   }
 }
