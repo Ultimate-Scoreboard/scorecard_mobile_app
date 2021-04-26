@@ -136,7 +136,7 @@ function Names({
                 <ScoreComponent
                   score={score}
                   setScore={setScore}
-                  selectedPlayer={i}
+                  selectedPlayer={selectedPlayer}
                 />
               ) : (
                 <View style={styles.container}>

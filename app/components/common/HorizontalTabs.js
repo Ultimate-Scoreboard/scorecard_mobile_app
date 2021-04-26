@@ -48,11 +48,10 @@ function HorizontalTabs({ tabs, onSelect, selected, perRow, hideTitles }) {
                         styles.text,
                         {
                           backgroundColor: defaultStyles.colors.info,
-                          color: defaultStyles.colors.holdLight,
+                          color: isSelected
+                            ? defaultStyles.colors.holdDark
+                            : defaultStyles.colors.holdLight,
                         },
-                        isSelected
-                          ? { color: defaultStyles.colors.holdDark }
-                          : {},
                       ]}
                     >
                       {allowables.capLetterOne(tab.name)}
