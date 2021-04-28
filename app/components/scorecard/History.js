@@ -6,10 +6,9 @@ import AppText from "./../text/AppText";
 import { allowables } from "../../functions";
 import { clicks, defaultStyles } from "../../config";
 import AppInput from "./../form/AppInput";
-import RoundedButton from "./../button/RoundedButton";
 import SettingsContext from "./../../context/settingsContext";
 
-function History({ score, onCompleteEdit }) {
+function History({ score, onCompleteEdit, type, initialValue }) {
   const { showRounds } = useContext(SettingsContext);
   const [edit, setEdit] = useState(null);
   const [editedScore, setEditedScore] = useState("");
@@ -45,6 +44,20 @@ function History({ score, onCompleteEdit }) {
             Total
           </AppText>
           <Divider />
+          {type === "countdown" && (
+            <>
+              <AppText
+                style={[
+                  styles.headerText,
+                  styles.smallHeaderText,
+                  styles.totalHeader,
+                ]}
+              >
+                Initial
+              </AppText>
+              <Divider />
+            </>
+          )}
           {highestRound.map((r, i) => {
             return (
               <View key={i}>
@@ -72,6 +85,14 @@ function History({ score, onCompleteEdit }) {
                   {p.points[0].points}
                 </AppText>
                 <Divider />
+                {type === "countdown" && (
+                  <>
+                    <AppText style={[styles.headerText, styles.totalHeader]}>
+                      {initialValue}
+                    </AppText>
+                    <Divider />
+                  </>
+                )}
                 {p.history.map((h, i) => {
                   const editing =
                     edit && edit.player._id === p._id && edit.index === i;

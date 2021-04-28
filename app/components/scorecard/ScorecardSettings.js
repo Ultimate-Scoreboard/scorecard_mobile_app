@@ -28,11 +28,11 @@ function ScorecardSettings({ onResetScore }) {
         Tap the player name again to deselect them and hide the incrementer.
         {"\n"}
       </AppText>
-      <AppText style={styles.miniHeader}>Tally Scorecards</AppText>
+      <AppText style={styles.miniHeader}>Countdown & Tally Scorecards</AppText>
       <AppText style={styles.text}>
-        There are a couple ways to update a Tally scorecard. The simplest way is
-        on the main tab. Tap the player you need to update, enter their score
-        for the round and hit Done on your keyboard.
+        There are a couple ways to update this type of scorecard. The simplest
+        way is on the main tab. Tap the player you need to update, enter their
+        score for the round and hit Done on your keyboard.
         {"\n"}
         If you need to edit a score from a previous round you can do so on the
         history tab. Select the score you want to edit to bring up the input.

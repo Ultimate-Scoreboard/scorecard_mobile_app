@@ -5,10 +5,13 @@ import Divider from "./../common/Divider";
 import TypeSelect from "./TypeSelect";
 import PlayerSelect from "./PlayerSelect";
 import BlockButton from "./../button/BlockButton";
+import InitialValue from "./InitialValue";
 
 function CreationForm({
   type,
   setType,
+  initialValue,
+  setInitialValue,
   numberOfPlayers,
   setNumberOfPlayers,
   onNext,
@@ -17,6 +20,12 @@ function CreationForm({
     <>
       <TypeSelect type={type} setType={setType} />
       <Divider />
+      {type === "countdown" && (
+        <>
+          <InitialValue value={initialValue} setValue={setInitialValue} />
+          <Divider />
+        </>
+      )}
       <PlayerSelect
         numberOfPlayers={numberOfPlayers}
         setNumberOfPlayers={setNumberOfPlayers}

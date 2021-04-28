@@ -42,7 +42,13 @@ function Names({
   };
 
   const ScoreComponent =
-    type === "incrementer" ? Incrementer : type === "tally" ? Tally : null;
+    type === "incrementer"
+      ? Incrementer
+      : type === "tally"
+      ? Tally
+      : type === "countdown"
+      ? Tally
+      : null;
 
   return (
     <View>

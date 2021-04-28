@@ -15,6 +15,7 @@ import { allowables } from "../functions";
 function Home({ navigation }) {
   const [page, setPage] = useState("form");
   const [type, setType] = useState("tally");
+  const [initialValue, setInitialValue] = useState("");
   const [numberOfPlayers, setNumberOfPlayers] = useState(2);
   const [players, setPlayers] = useState([]);
   const [playersVisible, setPlayersVisible] = useState(false);
@@ -69,14 +70,21 @@ function Home({ navigation }) {
     let currentPlayers = [...players];
     if (source === "form") currentPlayers = addPlayers(true);
     let finalPlayers = [];
+    const startingValue = Number(initialValue) || 0;
     currentPlayers.forEach((p, i) => {
       let player = { ...p };
       if (player.name === "") player.name = `Player ${String(i + 1)}`;
       player._id = i;
+      if (type === "countdown")
+        player.points = [{ points: startingValue, set: 1 }];
       finalPlayers.push(player);
     });
     setPlayersVisible(false);
-    navigation.navigate(routes.SCORECARD, { type, players: finalPlayers });
+    navigation.navigate(routes.SCORECARD, {
+      type,
+      players: finalPlayers,
+      initialValue: startingValue,
+    });
   };
 
   return (
@@ -99,6 +107,8 @@ function Home({ navigation }) {
       <CreationForm
         type={type}
         setType={setType}
+        initialValue={initialValue}
+        setInitialValue={setInitialValue}
         numberOfPlayers={numberOfPlayers}
         setNumberOfPlayers={setNumberOfPlayers}
         onNext={handleSelectPage}

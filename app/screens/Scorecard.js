@@ -19,6 +19,7 @@ function Scorecard({ navigation, route }) {
   const [tab, setTab] = useState("home");
   const [score, setScore] = useState([]);
   const [type, setType] = useState("incrementer");
+  const [initialValue, setInitialValue] = useState(501);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [nameEdit, setNameEdit] = useState(false);
   const [sortColumn, setSortColumn] = useState({
@@ -27,11 +28,12 @@ function Scorecard({ navigation, route }) {
   });
   const [error, setError] = useState(null);
 
+  const multiplier = type === "countdown" ? -1 : 1;
   const tabs = [
     { name: "home", icon: "clipboard-text", iconType: "material" },
     { name: "help", icon: "help-circle", iconType: "material" },
   ];
-  if (type === "tally")
+  if (type === "tally" || type === "countdown")
     tabs.splice(1, 0, { name: "history", icon: "history", iconType: "font" });
 
   const checkForParams = () => {
@@ -42,6 +44,9 @@ function Scorecard({ navigation, route }) {
     setError(null);
     let currentScore = await storageFunctions.getAsyncStorage("score");
     let currentType = await storageFunctions.getAsyncStorage("type");
+    let currentInitialValue = await storageFunctions.getAsyncStorage(
+      "initialValue"
+    );
     if (currentScore && currentType) {
       if (checkForParams())
         Alert.alert(
@@ -50,12 +55,13 @@ function Scorecard({ navigation, route }) {
           [
             {
               text: "No",
-              onPress: () => retrieveScore(currentScore, currentType),
+              onPress: () =>
+                retrieveScore(currentScore, currentType, currentInitialValue),
             },
             { text: "Yes", onPress: () => startNewCard() },
           ]
         );
-      else retrieveScore(currentScore, currentType);
+      else retrieveScore(currentScore, currentType, currentInitialValue);
     } else startNewCard();
   };
 
@@ -66,16 +72,27 @@ function Scorecard({ navigation, route }) {
     let newScore = [...route.params.players];
     setScore(newScore);
     setType(route.params.type);
+    setInitialValue(route.params.initialValue);
     newScore = newScore.map((p) => JSON.stringify(p));
     await storageFunctions.saveAsyncStorage("score", JSON.stringify(newScore));
     await storageFunctions.saveAsyncStorage("type", route.params.type);
+    if (route.params.type === "countdown")
+      await storageFunctions.saveAsyncStorage(
+        "initialValue",
+        String(route.params.initialValue)
+      );
     setTab("home");
   };
 
-  const retrieveScore = async (currentScore, currentType) => {
+  const retrieveScore = async (
+    currentScore,
+    currentType,
+    currentInitialValue
+  ) => {
     currentScore = JSON.parse(currentScore);
     setScore(currentScore.map((p) => JSON.parse(p)));
     setType(currentType);
+    setInitialValue(Number(currentInitialValue));
     setTab("home");
   };
 
@@ -117,11 +134,12 @@ function Scorecard({ navigation, route }) {
     if (type === "incrementer") {
       currentPlayer.points = [{ set: 1, points: value }];
     }
-    if (type === "tally") {
+    if (type === "tally" || type === "countdown") {
       currentPlayer.points = [
         {
           set: 1,
-          points: Number(currentPlayer.points[0].points) + Number(value),
+          points:
+            Number(currentPlayer.points[0].points) + Number(value) * multiplier,
         },
       ];
       let history = [...currentPlayer.history];
@@ -146,7 +164,9 @@ function Scorecard({ navigation, route }) {
     let resetScores = [];
     currentScore.forEach((p) => {
       let player = { ...p };
-      player.points = [{ points: 0, set: 1 }];
+      player.points = [
+        { points: type === "countdown" ? initialValue : 0, set: 1 },
+      ];
       player.history = [];
       resetScores.push(player);
     });
@@ -218,13 +238,13 @@ function Scorecard({ navigation, route }) {
     }
     let newTotal = 0;
     if (historyIndex === history.length) {
-      newTotal = currentPlayer.points[0].points + Number(value);
+      newTotal = currentPlayer.points[0].points + Number(value) * multiplier;
       history.push({ round: historyIndex, points: Number(value) });
     } else {
       newTotal =
         currentPlayer.points[0].points -
-        history[historyIndex].points +
-        Number(value);
+        history[historyIndex].points * multiplier +
+        Number(value) * multiplier;
       history.splice(historyIndex, 1, {
         round: historyIndex + 1,
         points: Number(value),
@@ -379,7 +399,8 @@ function Scorecard({ navigation, route }) {
             <History
               score={score}
               onCompleteEdit={setScoreFromHistory}
-              onUndoRound={alertUndo}
+              type={type}
+              initialValue={initialValue}
             />
           )}
           {tab === "help" && (

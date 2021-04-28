@@ -11,6 +11,7 @@ export { default as AppPicker } from "./form/AppPicker";
 export { default as Divider } from "./common/Divider";
 export { default as CreationForm } from "./home/CreationForm";
 export { default as EnterPlayers } from "./home/EnterPlayers";
+export { default as InitialValue } from "./home/InitialValue";
 export { default as Error } from "./common/Error";
 export { default as Names } from "./scorecard/Names";
 export { default as HorizontalTabs } from "./common/HorizontalTabs";

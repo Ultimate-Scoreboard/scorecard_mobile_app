@@ -7,6 +7,12 @@ import AppText from "./../text/AppText";
 function TypeSelect({ type, setType }) {
   const options = [
     {
+      label: "Countdown",
+      value: "countdown",
+      text:
+        "Start with an initial total, each entered score takes away from that total and keep a history of all scores. Useful for games like darts.",
+    },
+    {
       label: "Incrementer",
       value: "incrementer",
       text:
