@@ -75,6 +75,7 @@ function Home({ navigation }) {
       player._id = i;
       finalPlayers.push(player);
     });
+    setPlayersVisible(false);
     navigation.navigate(routes.SCORECARD, { type, players: finalPlayers });
   };
 
