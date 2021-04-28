@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Alert } from "react-native";
+import { StyleSheet, Alert } from "react-native";
+import * as StoreReview from "expo-store-review";
 
 import {
   Screen,
@@ -157,6 +158,11 @@ function Scorecard({ navigation, route }) {
     );
     setTab("home");
     setSelectedPlayer(null);
+
+    // request store review, cannot really test, multiple instances keep getting blocked
+    const reviewable = await StoreReview.isAvailableAsync();
+    const hasAction = await StoreReview.hasAction();
+    if (reviewable && hasAction) StoreReview.requestReview();
   };
 
   const handleSort = (col) => {
@@ -377,7 +383,9 @@ function Scorecard({ navigation, route }) {
             />
           )}
           {tab === "help" && (
-            <ScorecardSettings onResetScore={alertResetScores} />
+            <>
+              <ScorecardSettings onResetScore={alertResetScores} />
+            </>
           )}
         </>
       )}

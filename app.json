@@ -34,7 +34,8 @@
         "backgroundImage": "./assets/logos/splashSquare.png"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "permissions": []
+      "permissions": [],
+      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.scorecard.ultimatescoreboard"
     },
     "sdkVersion": "40.0.0",
     "web": {
