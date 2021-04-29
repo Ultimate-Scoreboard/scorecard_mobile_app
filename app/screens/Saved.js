@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Alert, FlatList } from "react-native";
+import { StyleSheet, Alert, FlatList, View } from "react-native";
 
 import { storageFunctions, allowables } from "../functions";
-import { Screen, Header, SavedCard } from "../components";
+import {
+  Screen,
+  Header,
+  PullToRefresh,
+  SavedCard,
+  NoSavedCards,
+  BlockButton,
+} from "../components";
 import routes from "../navigation/routes";
 
 function Saved({ navigation, route }) {
   const [savedCards, setSavedCards] = useState([]);
+  const [expandAll, setExpandAll] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const retriveCards = async () => {
+    setRefreshing(true);
     let currentSavedCards = await storageFunctions.getAsyncStorage(
       "savedCards"
     );
@@ -17,6 +26,7 @@ function Saved({ navigation, route }) {
       currentSavedCards = currentSavedCards.map((c) => JSON.parse(c));
     } else currentSavedCards = [];
     setSavedCards(currentSavedCards);
+    setRefreshing(false);
   };
 
   useEffect(() => {
@@ -35,7 +45,7 @@ function Saved({ navigation, route }) {
         card.type
       )} - ${
         card.numberOfPlayers
-      } players\n\nAre you sure you want to delete this card?`,
+      } players\n\nAre you sure you want to delete this scorecard?`,
       [{ text: "No" }, { text: "Yes", onPress: () => handleDelete(card) }],
       { cancelable: true }
     );
@@ -58,6 +68,7 @@ function Saved({ navigation, route }) {
       players: card.score,
       initialValue: card.initialValue || 0,
       date: card.date,
+      saved: true,
     });
   };
 
@@ -69,21 +80,29 @@ function Saved({ navigation, route }) {
         </>
       }
     >
+      <BlockButton
+        title={(expandAll ? "Collapse" : "Expand") + " All Scorecards"}
+        onPress={() => setExpandAll(!expandAll)}
+        color="btnInfo"
+        size="small"
+      />
+      <PullToRefresh />
       <FlatList
         data={savedCards}
-        keyExtractor={(d) => d.date}
-        renderItem={({ item, index }) => {
+        keyExtractor={(d) => String(d.date)}
+        renderItem={({ item }) => {
           return (
             <SavedCard
               card={item}
-              index={index}
               onSelect={handleSelect}
               onDelete={alertDelete}
+              expandAll={expandAll}
             />
           );
         }}
         refreshing={refreshing}
         onRefresh={retriveCards}
+        ListEmptyComponent={<NoSavedCards />}
       />
     </Screen>
   );

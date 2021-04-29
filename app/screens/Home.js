@@ -85,6 +85,7 @@ function Home({ navigation }) {
       players: finalPlayers,
       initialValue: startingValue,
       date: new Date().getTime(),
+      saved: false,
     });
   };
 

@@ -9,6 +9,7 @@ import {
   ShowRounds,
   Divider,
   BlockButton,
+  ScorecardSettings,
 } from "../components";
 import SettingsContext from "./../context/settingsContext";
 
@@ -77,6 +78,7 @@ function Settings() {
           </View>
         );
       })}
+      <ScorecardSettings nonCard={true} />
     </Screen>
   );
 }

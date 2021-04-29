@@ -16,7 +16,7 @@ import { storageFunctions, allowables } from "../functions";
 import routes from "../navigation/routes";
 
 function Scorecard({ navigation, route }) {
-  const [tab, setTab] = useState("home");
+  const [tab, setTab] = useState("main");
   const [score, setScore] = useState([]);
   const [type, setType] = useState("incrementer");
   const [initialValue, setInitialValue] = useState(501);
@@ -30,7 +30,7 @@ function Scorecard({ navigation, route }) {
 
   const multiplier = type === "countdown" ? -1 : 1;
   const tabs = [
-    { name: "home", icon: "clipboard-text", iconType: "material" },
+    { name: "main", icon: "clipboard-text", iconType: "material" },
     { name: "help", icon: "help-circle", iconType: "material" },
   ];
   if (type === "tally" || type === "countdown")
@@ -50,8 +50,10 @@ function Scorecard({ navigation, route }) {
     if (currentScore && currentType) {
       if (checkForParams())
         Alert.alert(
-          "Start New Scorecard",
-          "You already have a scorecard in progress. Starting a new scorecard will delete your old data.\n\nAre you sure?",
+          route.params.saved ? "Reload Scorecard" : "Start New Scorecard",
+          `You already have a scorecard in progress. ${
+            route.params.saved ? "Reloading an old" : "Starting a new"
+          } scorecard will delete your current data.\n\nAre you sure?`,
           [
             {
               text: "No",
@@ -81,7 +83,7 @@ function Scorecard({ navigation, route }) {
         "initialValue",
         String(route.params.initialValue)
       );
-    setTab("home");
+    setTab("main");
   };
 
   const retrieveScore = async (
@@ -93,7 +95,7 @@ function Scorecard({ navigation, route }) {
     setScore(currentScore.map((p) => JSON.parse(p)));
     setType(currentType);
     setInitialValue(Number(currentInitialValue));
-    setTab("home");
+    setTab("main");
   };
 
   useEffect(() => {
@@ -178,7 +180,7 @@ function Scorecard({ navigation, route }) {
       "score",
       JSON.stringify(resetScores)
     );
-    setTab("home");
+    setTab("main");
     setSelectedPlayer(null);
 
     // request store review, cannot really test, multiple instances keep getting blocked
@@ -320,7 +322,9 @@ function Scorecard({ navigation, route }) {
   const alertSave = () => {
     Alert.alert(
       "Save Scorecard",
-      "You are saving the current scoreHow would you like to save this scorecard to your saved cards?",
+      route.params.saved
+        ? "Would you like to overwrite this scorecard in your saved cards?"
+        : "Would you like to save this scorecard to your saved cards?",
       [{ text: "Cancel" }, { text: "Save", onPress: () => save() }],
       { cancelable: true }
     );
@@ -391,12 +395,12 @@ function Scorecard({ navigation, route }) {
             tabs={tabs}
             selected={tab}
             onSelect={handleSelectTab}
-            hideTitles={true}
+            // hideTitles={true}
           />
         </>
       }
       footer={
-        tab === "home" &&
+        tab === "main" &&
         score.length > 0 && (
           <BlockButton
             title="Add Player"
@@ -418,7 +422,7 @@ function Scorecard({ navigation, route }) {
         </>
       ) : (
         <>
-          {tab === "home" && (
+          {tab === "main" && (
             <>
               <Names
                 score={score}
