@@ -220,7 +220,8 @@ function Scorecard({ navigation, route }) {
     currentPlayer.points = [
       {
         set: 1,
-        points: currentPlayer.points[0].points - history[index].points,
+        points:
+          currentPlayer.points[0].points - history[index].points * multiplier,
       },
     ];
     history.splice(index, 1);
