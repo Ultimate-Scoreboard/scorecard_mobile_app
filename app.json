@@ -4,7 +4,7 @@
     "slug": "Scorecard",
     "platforms": ["ios", "android", "web"],
     "privacy": "public",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "orientation": "portrait",
     "description": "An easy to use scorecard for game night",
     "icon": "./assets/logos/icon.png",

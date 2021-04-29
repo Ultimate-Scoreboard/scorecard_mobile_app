@@ -6,11 +6,13 @@ import Divider from "./../common/Divider";
 import AppText from "./../text/AppText";
 import Sharing from "./Sharing";
 
-function ScorecardSettings({ onResetScore }) {
+function ScorecardSettings({ onResetScore, onSave }) {
   return (
     <>
       <Divider />
       <BlockButton title="Reset Scores" onPress={onResetScore} />
+      <Divider />
+      <BlockButton title="Save this Card" onPress={onSave} />
       <Divider />
       <Sharing />
       <Divider />

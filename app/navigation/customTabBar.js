@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
 
 import { AppText, IconRender } from "./../components";
 import routes from "./routes";
 import { clicks, defaultStyles } from "../config";
-import SettingsContext from "./../context/settingsContext";
 
 function CustomTabBar({ navigation, state }) {
-  const { theme } = useContext(SettingsContext);
   const tabs = [
     { name: routes.SCORECARD, icon: "star", iconType: "ant" },
     { name: routes.HOME, icon: "pluscircleo", iconType: "ant" },
+    { name: routes.SAVED, icon: "save", iconType: "ant" },
     { name: routes.SETTINGS, icon: "setting", iconType: "ant" },
   ];
 

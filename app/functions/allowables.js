@@ -14,8 +14,29 @@ const blankPlayer = {
   history: [],
 };
 
+const convertTimestamp = (time) => {
+  const date = new Date(time);
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+};
+
 export default {
   capLetterOne,
   truncName,
   blankPlayer,
+  convertTimestamp,
 };

@@ -84,6 +84,7 @@ function Home({ navigation }) {
       type,
       players: finalPlayers,
       initialValue: startingValue,
+      date: new Date().getTime(),
     });
   };
 

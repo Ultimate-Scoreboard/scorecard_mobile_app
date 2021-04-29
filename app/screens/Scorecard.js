@@ -317,6 +317,41 @@ function Scorecard({ navigation, route }) {
     await saveScore(currentScore);
   };
 
+  const alertSave = () => {
+    Alert.alert(
+      "Save Scorecard",
+      "You are saving the current scoreHow would you like to save this scorecard to your saved cards?",
+      [{ text: "Cancel" }, { text: "Save", onPress: () => save() }],
+      { cancelable: true }
+    );
+  };
+  const save = async () => {
+    const currentScore = [...score];
+    let savedCards = await storageFunctions.getAsyncStorage("savedCards");
+    let index = -1;
+    if (!savedCards) {
+      savedCards = [];
+    } else {
+      savedCards = JSON.parse(savedCards).map((c) => JSON.parse(c));
+      index = savedCards.findIndex((c) => c.date === route.params.date);
+    }
+    const thisCard = {
+      type,
+      numberOfPlayers: currentScore.length,
+      playerNames: currentScore.map((p) => p.name),
+      score: currentScore,
+      initialValue,
+      date: route.params.date || new Date().getTime(),
+    };
+    if (index >= 0) savedCards.splice(index, 1, thisCard);
+    else savedCards.push(thisCard);
+    savedCards = savedCards.map((c) => JSON.stringify(c));
+    await storageFunctions.saveAsyncStorage(
+      "savedCards",
+      JSON.stringify(savedCards)
+    );
+  };
+
   const getPlayers = (newSortColumn) => {
     let players = [...score];
     if (newSortColumn.path === "points")
@@ -410,7 +445,10 @@ function Scorecard({ navigation, route }) {
           )}
           {tab === "help" && (
             <>
-              <ScorecardSettings onResetScore={alertResetScores} />
+              <ScorecardSettings
+                onResetScore={alertResetScores}
+                onSave={alertSave}
+              />
             </>
           )}
         </>
