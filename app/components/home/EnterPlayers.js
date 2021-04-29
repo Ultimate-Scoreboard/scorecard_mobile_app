@@ -41,6 +41,7 @@ function EnterPlayers({
         return (
           <AppInput
             key={i}
+            autoFocus={i === 0}
             value={p.name}
             onChangeText={(value) => onEditPlayer(value, i)}
             placeholder={`Player ${String(i + 1)}`}

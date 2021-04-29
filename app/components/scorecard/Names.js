@@ -11,7 +11,6 @@ import SettingsContext from "./../../context/settingsContext";
 import Tally from "./Tally";
 import NameEdit from "./NameEdit";
 import RoundedButton from "../button/RoundedButton";
-import BlockButton from "./../button/BlockButton";
 
 function Names({
   score,

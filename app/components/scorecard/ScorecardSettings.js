@@ -4,12 +4,15 @@ import { StyleSheet, View } from "react-native";
 import BlockButton from "./../button/BlockButton";
 import Divider from "./../common/Divider";
 import AppText from "./../text/AppText";
+import Sharing from "./Sharing";
 
 function ScorecardSettings({ onResetScore }) {
   return (
     <>
       <Divider />
       <BlockButton title="Reset Scores" onPress={onResetScore} />
+      <Divider />
+      <Sharing />
       <Divider />
       <AppText style={styles.header}>Help</AppText>
       <AppText style={styles.miniHeader}>Update Names</AppText>

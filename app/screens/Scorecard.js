@@ -154,7 +154,9 @@ function Scorecard({ navigation, route }) {
   const alertResetScores = () => {
     Alert.alert(
       "Reset Scores",
-      "You are about to reset all scores to zero.\n\nAre you sure?",
+      `You are about to reset all scores to ${
+        type === "countdown" ? String(initialValue) : "zero"
+      }.\n\nAre you sure?`,
       [{ text: "No" }, { text: "Yes", onPress: () => handleResetScore() }],
       { cancelable: true }
     );
@@ -304,6 +306,8 @@ function Scorecard({ navigation, route }) {
   const handleAddPlayer = async () => {
     let currentScore = [...score];
     let newPlayer = { ...allowables.blankPlayer };
+    if (type === "countdown")
+      newPlayer.points = [{ points: initialValue, set: 1 }];
     const highIndex = score.map((p) => p._id).reduce((p, c) => (p > c ? p : c));
     if (!highIndex && highIndex !== 0) newPlayer._id = score.length;
     else newPlayer._id = highIndex + 1;
