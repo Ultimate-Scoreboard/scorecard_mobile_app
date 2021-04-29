@@ -128,7 +128,7 @@ function Scorecard({ navigation, route }) {
   };
 
   const handleSetScore = async (value) => {
-    if (!value) return setSelectedPlayer(null);
+    if (!value && value !== 0) return setSelectedPlayer(null);
     if (!selectedPlayer && selectedPlayer !== 0) return;
     let { currentScore, index, currentPlayer } = spreadToEdit({
       _id: selectedPlayer,
