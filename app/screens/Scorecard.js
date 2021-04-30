@@ -12,6 +12,7 @@ import {
   HorizontalTabs,
   History,
   ScorecardSettings,
+  BannerAd,
 } from "./../components";
 import { storageFunctions, allowables } from "../functions";
 import routes from "../navigation/routes";
@@ -443,15 +444,17 @@ function Scorecard({ navigation, route }) {
         </>
       }
       footer={
-        tab === "main" &&
-        score.length > 0 && (
-          <BlockButton
-            title="Add Player"
-            size="small"
-            color="btnInfo"
-            onPress={handleAddPlayer}
-          />
-        )
+        <>
+          {tab === "main" && score.length > 0 && (
+            <BlockButton
+              title="Add Player"
+              size="small"
+              color="btnInfo"
+              onPress={handleAddPlayer}
+            />
+          )}
+          <BannerAd />
+        </>
       }
     >
       {error ? (

@@ -9,6 +9,7 @@ import {
   SavedCard,
   NoSavedCards,
   BlockButton,
+  BannerAd,
 } from "../components";
 import routes from "../navigation/routes";
 
@@ -79,6 +80,7 @@ function Saved({ navigation, route }) {
           <Header>Saved Scorecards</Header>
         </>
       }
+      footer={<BannerAd />}
     >
       <BlockButton
         title={(expandAll ? "Collapse" : "Expand") + " All Scorecards"}

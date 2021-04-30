@@ -21,3 +21,4 @@ export { default as History } from "./scorecard/History";
 export { default as SavedCard } from "./saved/SavedCard";
 export { default as NoSavedCards } from "./saved/NoSavedCards";
 export { default as PullToRefresh } from "./common/PullToRefresh";
+export { default as BannerAd } from "./ads/BannerAd";
