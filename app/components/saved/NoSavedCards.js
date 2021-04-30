@@ -23,7 +23,6 @@ function NoSavedCards() {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor: defaultStyles.colors.muted,
     marginVertical: 15,
   },
   text: {

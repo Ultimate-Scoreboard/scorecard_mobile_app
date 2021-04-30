@@ -19,7 +19,9 @@ function Scorecard({ navigation, route }) {
   const [tab, setTab] = useState("main");
   const [score, setScore] = useState([]);
   const [type, setType] = useState("incrementer");
-  const [initialValue, setInitialValue] = useState(501);
+  const [initialValue, setInitialValue] = useState(0);
+  const [date, setDate] = useState(null);
+  const [saved, setSaved] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [nameEdit, setNameEdit] = useState(false);
   const [sortColumn, setSortColumn] = useState({
@@ -47,6 +49,8 @@ function Scorecard({ navigation, route }) {
     let currentInitialValue = await storageFunctions.getAsyncStorage(
       "initialValue"
     );
+    let currentDate = await storageFunctions.getAsyncStorage("date");
+    let currentSaved = await storageFunctions.getAsyncStorage("saved");
     if (currentScore && currentType) {
       if (checkForParams())
         Alert.alert(
@@ -58,12 +62,25 @@ function Scorecard({ navigation, route }) {
             {
               text: "No",
               onPress: () =>
-                retrieveScore(currentScore, currentType, currentInitialValue),
+                retrieveScore(
+                  currentScore,
+                  currentType,
+                  currentInitialValue,
+                  Number(currentDate),
+                  currentSaved === "true" ? true : false
+                ),
             },
             { text: "Yes", onPress: () => startNewCard() },
           ]
         );
-      else retrieveScore(currentScore, currentType, currentInitialValue);
+      else
+        retrieveScore(
+          currentScore,
+          currentType,
+          currentInitialValue,
+          Number(currentDate),
+          currentSaved === "true" ? true : false
+        );
     } else startNewCard();
   };
 
@@ -75,9 +92,16 @@ function Scorecard({ navigation, route }) {
     setScore(newScore);
     setType(route.params.type);
     setInitialValue(route.params.initialValue);
+    setDate(route.params.date);
+    setSaved(route.params.saved);
     newScore = newScore.map((p) => JSON.stringify(p));
     await storageFunctions.saveAsyncStorage("score", JSON.stringify(newScore));
     await storageFunctions.saveAsyncStorage("type", route.params.type);
+    await storageFunctions.saveAsyncStorage("date", String(route.params.date));
+    await storageFunctions.saveAsyncStorage(
+      "saved",
+      route.params.saved ? "true" : "false"
+    );
     if (route.params.type === "countdown")
       await storageFunctions.saveAsyncStorage(
         "initialValue",
@@ -89,12 +113,16 @@ function Scorecard({ navigation, route }) {
   const retrieveScore = async (
     currentScore,
     currentType,
-    currentInitialValue
+    currentInitialValue,
+    currentDate,
+    currentSaved
   ) => {
     currentScore = JSON.parse(currentScore);
     setScore(currentScore.map((p) => JSON.parse(p)));
     setType(currentType);
     setInitialValue(Number(currentInitialValue));
+    setDate(currentDate);
+    setSaved(currentSaved);
     setTab("main");
   };
 
@@ -322,7 +350,7 @@ function Scorecard({ navigation, route }) {
   const alertSave = () => {
     Alert.alert(
       "Save Scorecard",
-      route.params.saved
+      saved
         ? "Would you like to overwrite this scorecard in your saved cards?"
         : "Would you like to save this scorecard to your saved cards?",
       [{ text: "Cancel" }, { text: "Save", onPress: () => save() }],
@@ -332,12 +360,13 @@ function Scorecard({ navigation, route }) {
   const save = async () => {
     const currentScore = [...score];
     let savedCards = await storageFunctions.getAsyncStorage("savedCards");
+    console.log(savedCards, date);
     let index = -1;
     if (!savedCards) {
       savedCards = [];
     } else {
       savedCards = JSON.parse(savedCards).map((c) => JSON.parse(c));
-      index = savedCards.findIndex((c) => c.date === route.params.date);
+      index = savedCards.findIndex((c) => c.date === date);
     }
     const thisCard = {
       type,
@@ -345,7 +374,7 @@ function Scorecard({ navigation, route }) {
       playerNames: currentScore.map((p) => p.name),
       score: currentScore,
       initialValue,
-      date: route.params.date || new Date().getTime(),
+      date: date || new Date().getTime(),
     };
     if (index >= 0) savedCards.splice(index, 1, thisCard);
     else savedCards.push(thisCard);
@@ -354,6 +383,7 @@ function Scorecard({ navigation, route }) {
       "savedCards",
       JSON.stringify(savedCards)
     );
+    setSaved(true);
   };
 
   const getPlayers = (newSortColumn) => {

@@ -4,7 +4,7 @@
     "slug": "Scorecard",
     "platforms": ["ios", "android", "web"],
     "privacy": "public",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "orientation": "portrait",
     "description": "An easy to use scorecard for game night",
     "icon": "./assets/logos/icon.png",
@@ -27,7 +27,7 @@
     },
     "android": {
       "package": "com.scorecard.ultimatescoreboard",
-      "versionCode": 5,
+      "versionCode": 6,
       "icon": "./assets/logos/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/logos/adaptive-icon.png",
