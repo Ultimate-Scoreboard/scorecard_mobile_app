@@ -6,10 +6,10 @@
     "privacy": "public",
     "version": "1.3.0",
     "orientation": "portrait",
-    "description": "An easy to use scorecard for game night",
+    "description": "A versatile scorecard for game night",
     "icon": "./assets/logos/icon.png",
     "splash": {
-      "image": "./assets/logos/scrabbleSplash.jpg",
+      "image": "./assets/logos/scrabbleSplash.png",
       "resizeMode": "cover",
       "backgroundColor": "#831fe0"
     },

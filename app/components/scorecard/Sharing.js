@@ -27,20 +27,24 @@ function Sharing() {
     }
   };
 
-  const onReview = () => {
-    let url = StoreReview.storeUrl();
-    if (url) {
-      if ("android" in platform)
-        url =
-          url.replace("https://play.google.com/store/apps/", "market://") +
-          "&showAllReviews=true";
-      else if ("ios" in platform)
-        url = url.replace(
-          "https://apps.apple.com/app/apple-store/",
-          "itms-apps://itunes.apple.com/app/viewContentsUserReviews"
-        );
+  const onReview = async () => {
+    const reviewable = await StoreReview.isAvailableAsync();
+    const hasAction = await StoreReview.hasAction();
+    if (reviewable && hasAction) {
+      let url = StoreReview.storeUrl();
+      if (url) {
+        if ("android" in platform)
+          url =
+            url.replace("https://play.google.com/store/apps/", "market://") +
+            "&showAllReviews=true";
+        else if ("ios" in platform)
+          url = url.replace(
+            "https://apps.apple.com/app/apple-store/",
+            "itms-apps://itunes.apple.com/app/viewContentsUserReviews"
+          );
+      }
+      Linking.openURL(url);
     }
-    Linking.openURL(url);
   };
 
   return (
