@@ -9,7 +9,7 @@
     "description": "A versatile scorecard for game night",
     "icon": "./assets/logos/icon.png",
     "splash": {
-      "image": "./assets/logos/scrabbleSplash.png",
+      "image": "./assets/logos/notepadSplash.png",
       "resizeMode": "cover",
       "backgroundColor": "#831fe0"
     },
@@ -24,7 +24,9 @@
       "bundleIdentifier": "com.scorecard.ultimatescoreboard",
       "icon": "./assets/logos/icon.png",
       "buildNumber": "1.0.0",
-      "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
+      }
     },
     "android": {
       "package": "com.scorecard.ultimatescoreboard",
@@ -37,7 +39,9 @@
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [],
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.scorecard.ultimatescoreboard",
-      "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
+      }
     },
     "sdkVersion": "40.0.0",
     "web": {
