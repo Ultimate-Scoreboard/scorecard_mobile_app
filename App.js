@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 import navigationTheme from "./app/navigation/navigationTheme";
 import { navigationRef } from "./app/navigation/rootNavigation";
@@ -11,7 +12,6 @@ import { defaultStyles } from "./app/config";
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [showRounds, setShowRounds] = useState(false);
-  const [isReady, setIsReady] = useState(false);
 
   const retrieveSettings = async () => {
     const darkMode = await storageFunctions.getAsyncStorage("darkMode");
@@ -48,6 +48,7 @@ export default function App() {
         }}
       >
         <MainNavigator />
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </SettingsContext.Provider>
     </NavigationContainer>
   );

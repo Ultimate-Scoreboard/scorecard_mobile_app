@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Alert } from "react-native";
 import * as StoreReview from "expo-store-review";
+import Toast from "react-native-toast-message";
 
 import {
   Screen,
@@ -37,6 +38,10 @@ function Scorecard({ navigation, route }) {
   ];
   if (type === "tally" || type === "countdown")
     tabs.splice(1, 0, { name: "history", icon: "history", iconType: "font" });
+
+  const switchToFirstTab = () => {
+    setTab("main");
+  };
 
   const checkForParams = () => {
     return route.params && route.params.type && route.params.players;
@@ -107,7 +112,7 @@ function Scorecard({ navigation, route }) {
         "initialValue",
         String(route.params.initialValue)
       );
-    setTab("main");
+    switchToFirstTab();
   };
 
   const retrieveScore = async (
@@ -123,7 +128,7 @@ function Scorecard({ navigation, route }) {
     setInitialValue(Number(currentInitialValue));
     setDate(currentDate);
     setSaved(currentSaved);
-    setTab("main");
+    switchToFirstTab();
   };
 
   useEffect(() => {
@@ -208,7 +213,7 @@ function Scorecard({ navigation, route }) {
       "score",
       JSON.stringify(resetScores)
     );
-    setTab("main");
+    switchToFirstTab();
     setSelectedPlayer(null);
 
     // request store review, cannot really test, multiple instances keep getting blocked
@@ -360,7 +365,6 @@ function Scorecard({ navigation, route }) {
   const save = async () => {
     const currentScore = [...score];
     let savedCards = await storageFunctions.getAsyncStorage("savedCards");
-    console.log(savedCards, date);
     let index = -1;
     if (!savedCards) {
       savedCards = [];
@@ -384,6 +388,15 @@ function Scorecard({ navigation, route }) {
       JSON.stringify(savedCards)
     );
     setSaved(true);
+    switchToFirstTab();
+    Toast.show({
+      type: "success",
+      text1: "Scorecard Saved",
+      text2: "Refresh the Saved Cards tab to view",
+      position: "bottom",
+      visibilityTime: 3000,
+      bottomOffset: 100,
+    });
   };
 
   const getPlayers = (newSortColumn) => {
