@@ -431,7 +431,6 @@ function Scorecard({ navigation, route }) {
 
   return (
     <Screen
-      scroll={true}
       header={
         <>
           <Header>Scorecard</Header>
@@ -439,7 +438,6 @@ function Scorecard({ navigation, route }) {
             tabs={tabs}
             selected={tab}
             onSelect={handleSelectTab}
-            // hideTitles={true}
           />
         </>
       }
@@ -453,7 +451,7 @@ function Scorecard({ navigation, route }) {
               onPress={handleAddPlayer}
             />
           )}
-          <BannerAd />
+          <BannerAd route={route.name} />
         </>
       }
     >

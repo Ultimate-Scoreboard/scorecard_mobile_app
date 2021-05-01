@@ -50,7 +50,7 @@ function Names({
       : null;
 
   return (
-    <View>
+    <ScrollView>
       <View style={styles.container}>
         <TouchableOpacity
           style={styles._id}
@@ -164,7 +164,7 @@ function Names({
           </View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
 

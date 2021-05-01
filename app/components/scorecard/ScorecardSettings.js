@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 
 import BlockButton from "./../button/BlockButton";
 import Divider from "./../common/Divider";
@@ -8,7 +8,7 @@ import Sharing from "./Sharing";
 
 function ScorecardSettings({ onResetScore, onSave, nonCard }) {
   return (
-    <>
+    <ScrollView>
       {!nonCard && (
         <>
           <Divider />
@@ -84,7 +84,7 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         {"\n"}
         {"\n"}
       </AppText>
-    </>
+    </ScrollView>
   );
 }
 

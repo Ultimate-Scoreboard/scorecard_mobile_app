@@ -80,7 +80,7 @@ function Saved({ navigation, route }) {
           <Header>Saved Scorecards</Header>
         </>
       }
-      footer={<BannerAd />}
+      footer={<BannerAd route={route.name} />}
     >
       <BlockButton
         title={(expandAll ? "Collapse" : "Expand") + " All Scorecards"}

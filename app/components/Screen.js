@@ -8,9 +8,9 @@ function Screen({
   style,
   scroll,
   paddingTop,
-  stickyHeaderIndices,
   header,
   footer,
+  forwardRef,
   children,
 }) {
   const { theme } = useContext(SettingsContext);
@@ -24,11 +24,15 @@ function Screen({
       {scroll && (footer || header) ? (
         <React.Fragment>
           {header}
-          <ScrollView style={[styles.view, style]}>{children}</ScrollView>
+          <ScrollView style={[styles.view, style]} ref={forwardRef}>
+            {children}
+          </ScrollView>
           {footer}
         </React.Fragment>
       ) : scroll ? (
-        <ScrollView style={[styles.view, style]}>{children}</ScrollView>
+        <ScrollView style={[styles.view, style]} ref={forwardRef}>
+          {children}
+        </ScrollView>
       ) : (
         <>
           {header}

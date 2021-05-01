@@ -27,130 +27,156 @@ function History({ score, onCompleteEdit, type, initialValue }) {
   };
 
   return (
-    <View style={styles.container}>
-      {showRounds && (
-        <View style={styles.round}>
-          <AppText style={[styles.headerText, styles.smallHeaderText]}>
-            Round
-          </AppText>
-          <Divider />
-          <AppText
-            style={[
-              styles.headerText,
-              styles.smallHeaderText,
-              styles.totalHeader,
-            ]}
-          >
-            Total
-          </AppText>
-          <Divider />
-          {type === "countdown" && (
-            <>
-              <AppText
-                style={[
-                  styles.headerText,
-                  styles.smallHeaderText,
-                  styles.totalHeader,
-                ]}
-              >
-                Initial
-              </AppText>
-              <Divider />
-            </>
-          )}
-          {highestRound.map((r, i) => {
-            return (
-              <View key={i}>
-                <AppText style={styles.text}>{i + 1}</AppText>
-                <Divider />
-              </View>
-            );
-          })}
-        </View>
-      )}
-      <ScrollView style={styles.view} horizontal={true}>
-        {score.map((p) => {
-          const addingScore =
-            edit &&
-            edit.player._id === p._id &&
-            edit.index === p.history.length;
-          return (
-            <View key={p._id}>
-              <View style={styles.column} key={p._id}>
-                <AppText style={styles.headerText}>
-                  {allowables.truncName(p.name)}
+    <>
+      <ScrollView horizontal={true}>
+        <View>
+          <View style={styles.container}>
+            {showRounds && (
+              <View style={styles.round}>
+                <AppText style={[styles.headerText, styles.smallHeaderText]}>
+                  Round
                 </AppText>
                 <Divider />
-                <AppText style={[styles.headerText, styles.totalHeader]}>
-                  {p.points[0].points}
+                <AppText
+                  style={[
+                    styles.headerText,
+                    styles.smallHeaderText,
+                    styles.totalHeader,
+                  ]}
+                >
+                  Total
                 </AppText>
                 <Divider />
-                {type === "countdown" && (
+                {/* {type === "countdown" && (
                   <>
-                    <AppText style={[styles.headerText, styles.totalHeader]}>
-                      {initialValue}
+                    <AppText
+                      style={[
+                        styles.headerText,
+                        styles.smallHeaderText,
+                        styles.totalHeader,
+                      ]}
+                    >
+                      Initial
                     </AppText>
                     <Divider />
                   </>
-                )}
-                {p.history.map((h, i) => {
-                  const editing =
-                    edit && edit.player._id === p._id && edit.index === i;
-                  return editing ? (
-                    <View key={i} style={styles.container}>
-                      <AppInput
-                        autoFocus={true}
-                        value={editedScore}
-                        onChangeText={(value) => setEditedScore(value)}
-                        placeholder=""
-                        keyboardType="numeric"
-                        onSubmitEditing={() => editScore(p, i)}
-                        returnKeyType="done"
-                        blurOnSubmit={true}
-                        onEndEditing={cancelEdit}
-                        style={{ height: 40 }}
-                      />
-                    </View>
-                  ) : (
-                    <TouchableOpacity
-                      key={i}
-                      activeOpacity={clicks.clickOpacity}
-                      onPress={() => setEdit({ player: p, index: i })}
-                    >
-                      <AppText style={styles.text}>{h.points}</AppText>
-                      <Divider />
-                    </TouchableOpacity>
-                  );
-                })}
-                {addingScore ? (
-                  <AppInput
-                    autoFocus={true}
-                    value={editedScore}
-                    onChangeText={(value) => setEditedScore(value)}
-                    placeholder=""
-                    keyboardType="numeric"
-                    onSubmitEditing={() => editScore(p, p.history.length)}
-                    returnKeyType="done"
-                    blurOnSubmit={true}
-                    onEndEditing={cancelEdit}
-                  />
-                ) : (
-                  <TouchableOpacity
-                    activeOpacity={clicks.clickOpacity}
-                    onPress={() =>
-                      setEdit({ player: p, index: p.history.length })
-                    }
-                  >
-                    <AppText style={styles.text}></AppText>
-                    <Divider />
-                  </TouchableOpacity>
-                )}
+                )} */}
               </View>
+            )}
+            {score.map((p) => {
+              const addingScore =
+                edit &&
+                edit.player._id === p._id &&
+                edit.index === p.history.length;
+              return (
+                <View key={p._id}>
+                  <View style={styles.column} key={p._id}>
+                    <AppText style={styles.headerText}>
+                      {allowables.truncName(p.name)}
+                    </AppText>
+                    <Divider />
+                    <AppText style={[styles.headerText, styles.totalHeader]}>
+                      {p.points[0].points}
+                    </AppText>
+                    <Divider />
+                    {/* {type === "countdown" && (
+                      <>
+                        <AppText
+                          style={[styles.headerText, styles.totalHeader]}
+                        >
+                          {initialValue}
+                        </AppText>
+                        <Divider />
+                      </>
+                    )} */}
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+          <ScrollView>
+            <View style={styles.container}>
+              {showRounds && (
+                <View style={styles.round}>
+                  {highestRound.map((r, i) => {
+                    return (
+                      <View key={i}>
+                        <AppText style={styles.text}>{i + 1}</AppText>
+                        <Divider />
+                      </View>
+                    );
+                  })}
+                </View>
+              )}
+              {score.map((p) => {
+                const addingScore =
+                  edit &&
+                  edit.player._id === p._id &&
+                  edit.index === p.history.length;
+                return (
+                  <View key={p._id}>
+                    <View style={styles.column} key={p._id}>
+                      {p.history.map((h, i) => {
+                        const editing =
+                          edit && edit.player._id === p._id && edit.index === i;
+                        return editing ? (
+                          <View key={i} style={styles.container}>
+                            <AppInput
+                              autoFocus={true}
+                              value={editedScore}
+                              onChangeText={(value) => setEditedScore(value)}
+                              placeholder=""
+                              keyboardType="numeric"
+                              onSubmitEditing={() => editScore(p, i)}
+                              returnKeyType="done"
+                              blurOnSubmit={true}
+                              onEndEditing={cancelEdit}
+                              style={{ height: 40 }}
+                            />
+                          </View>
+                        ) : (
+                          <TouchableOpacity
+                            key={i}
+                            activeOpacity={clicks.clickOpacity}
+                            onPress={() => setEdit({ player: p, index: i })}
+                          >
+                            <AppText style={styles.text}>{h.points}</AppText>
+                            <Divider />
+                          </TouchableOpacity>
+                        );
+                      })}
+                      {addingScore ? (
+                        <AppInput
+                          autoFocus={true}
+                          value={editedScore}
+                          onChangeText={(value) => setEditedScore(value)}
+                          placeholder=""
+                          keyboardType="numeric"
+                          onSubmitEditing={() => editScore(p, p.history.length)}
+                          returnKeyType="done"
+                          blurOnSubmit={true}
+                          onEndEditing={cancelEdit}
+                        />
+                      ) : (
+                        <TouchableOpacity
+                          activeOpacity={clicks.clickOpacity}
+                          onPress={() =>
+                            setEdit({ player: p, index: p.history.length })
+                          }
+                        >
+                          <AppText style={styles.text}></AppText>
+                          <Divider />
+                        </TouchableOpacity>
+                      )}
+                    </View>
+                  </View>
+                );
+              })}
             </View>
-          );
-        })}
+          </ScrollView>
+        </View>
       </ScrollView>
-    </View>
+    </>
   );
 }
 

@@ -3,8 +3,12 @@ import { StyleSheet, View } from "react-native";
 import { AdMobBanner } from "expo-ads-admob";
 import Constants from "expo-constants";
 
-function BannerAd() {
-  const productionID = "ca-app-pub-6613892524077913/3385699092";
+function BannerAd({ route }) {
+  const productionID = route.toLowerCase().includes("scorecard")
+    ? "ca-app-pub-6613892524077913/3385699092"
+    : route.toLowerCase().includes("saved")
+    ? "ca-app-pub-6613892524077913/5572701124"
+    : "";
   const testID = Constants.platform.android
     ? "ca-app-pub-3940256099942544/6300978111"
     : "ca-app-pub-3940256099942544/2934735716";
