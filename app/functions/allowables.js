@@ -30,8 +30,19 @@ const convertTimestamp = (time) => {
     "Nov",
     "Dec",
   ];
-
   return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+};
+
+const convertMS = (time) => {
+  const addZero = (value) => (value < 10 ? `0${String(value)}` : String(value));
+  const hours = Math.floor(time / (1000 * 60 * 60));
+  const minutes = Math.floor((time / (1000 * 60)) % 60);
+  const seconds = Math.floor((time / 1000) % 60);
+  // const milliseconds = Math.floor((time % 1000) / 100);
+
+  return `${hours > 0 ? addZero(hours) + ":" : ""}${
+    minutes > 0 || hours > 0 ? addZero(minutes) + ":" : ""
+  }${minutes > 0 || hours > 0 ? addZero(seconds) : seconds}`;
 };
 
 export default {
@@ -39,4 +50,5 @@ export default {
   truncName,
   blankPlayer,
   convertTimestamp,
+  convertMS,
 };

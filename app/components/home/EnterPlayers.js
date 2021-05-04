@@ -14,15 +14,10 @@ function EnterPlayers({
   visible,
   setVisible,
 }) {
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
-  const ref4 = useRef(null);
-  const ref5 = useRef(null);
-  const ref6 = useRef(null);
-  const ref7 = useRef(null);
-  const ref8 = useRef(null);
-  const refs = [ref1, ref2, ref3, ref4, ref5, ref6, ref7, ref8];
+  let refs = [];
+  players.forEach(() => {
+    refs.push(useRef(null));
+  });
 
   const handleNextField = (index, finalField) => {
     if (finalField) return;

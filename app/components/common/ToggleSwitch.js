@@ -2,14 +2,14 @@ import React from "react";
 import { StyleSheet, View, Switch } from "react-native";
 
 import { defaultStyles } from "../../config";
-import AppText from "../text/AppText";
+import AppText from "./../text/AppText";
 
-function ShowRounds({ current, onChange }) {
+function ToggleSwitch({ current, onChange, title, subtitle }) {
   return (
     <>
       <View style={styles.container}>
         <View style={styles.textContainer}>
-          <AppText style={styles.text}>Show Round Numbers</AppText>
+          <AppText style={styles.text}>{title}</AppText>
         </View>
         <View style={styles.switch}>
           <Switch
@@ -27,9 +27,7 @@ function ShowRounds({ current, onChange }) {
           />
         </View>
       </View>
-      <AppText style={styles.subText}>
-        Whether to show round numbers on the history tab for a Tally scorecard
-      </AppText>
+      <AppText style={styles.subText}>{subtitle}</AppText>
     </>
   );
 }
@@ -50,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShowRounds;
+export default ToggleSwitch;

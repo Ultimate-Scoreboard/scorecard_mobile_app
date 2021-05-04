@@ -5,38 +5,31 @@ import { storageFunctions } from "../functions";
 import {
   Screen,
   Header,
-  DarkMode,
-  ShowRounds,
   Divider,
   BlockButton,
   ScorecardSettings,
+  ToggleSwitch,
 } from "../components";
 import SettingsContext from "./../context/settingsContext";
 
 function Settings() {
-  const { darkMode, setDarkMode, showRounds, setShowRounds } = useContext(
-    SettingsContext
-  );
+  const {
+    darkMode,
+    setDarkMode,
+    hideRounds,
+    setHideRounds,
+    hideTimer,
+    setHideTimer,
+  } = useContext(SettingsContext);
 
-  const handleToggleDarkMode = async () => {
-    const mode = await storageFunctions.getAsyncStorage("darkMode");
+  const handleToggle = async (id, onChange) => {
+    const mode = await storageFunctions.getAsyncStorage(id);
     if (mode) {
-      await storageFunctions.removeAsyncStorage("darkMode");
-      setDarkMode(false);
+      await storageFunctions.removeAsyncStorage(id);
+      onChange(false);
     } else {
-      await storageFunctions.saveAsyncStorage("darkMode", "on");
-      setDarkMode(true);
-    }
-  };
-
-  const handleToggleShowRounds = async () => {
-    const mode = await storageFunctions.getAsyncStorage("showRounds");
-    if (mode) {
-      await storageFunctions.removeAsyncStorage("showRounds");
-      setShowRounds(false);
-    } else {
-      await storageFunctions.saveAsyncStorage("showRounds", "on");
-      setShowRounds(true);
+      await storageFunctions.saveAsyncStorage(id, "on");
+      onChange(true);
     }
   };
 
@@ -51,15 +44,32 @@ function Settings() {
   const handleReset = () => {
     storageFunctions.clearAsyncStorage();
     setDarkMode(false);
-    setShowRounds(false);
+    setHideRounds(false);
   };
 
   const settings = [
-    { Component: DarkMode, current: darkMode, onChange: handleToggleDarkMode },
     {
-      Component: ShowRounds,
-      current: showRounds,
-      onChange: handleToggleShowRounds,
+      id: "darkMode",
+      current: darkMode,
+      onChange: setDarkMode,
+      title: "Dark Mode",
+      subtitle: "Go easy on your eyes with dark mode.",
+    },
+    {
+      id: "hideRounds",
+      current: hideRounds,
+      onChange: setHideRounds,
+      title: "Hide Round Numbers",
+      subtitle:
+        "Whether to hide round numbers on the history tab for a Tally scorecard",
+    },
+    {
+      id: "hideTimer",
+      current: hideTimer,
+      onChange: setHideTimer,
+      title: "Hide Timer",
+      subtitle:
+        "Whether to hide the timer on the Main and History tabs of the Scorecard screen",
     },
   ];
 
@@ -73,7 +83,12 @@ function Settings() {
       {settings.map((s, i) => {
         return (
           <View key={i}>
-            <s.Component current={s.current} onChange={s.onChange} />
+            <ToggleSwitch
+              current={s.current}
+              onChange={() => handleToggle(s.id, s.onChange)}
+              title={s.title}
+              subtitle={s.subtitle}
+            />
             <Divider />
           </View>
         );

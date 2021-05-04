@@ -5,7 +5,7 @@ import ButtonText from "../text/ButtonText";
 import { defaultStyles, clicks } from "../../config";
 import IconRender from "../icon/IconRender";
 
-function BlockButton({ onPress, size, title, icon, color }) {
+function BlockButton({ onPress, size, title, icon, color, disabled }) {
   const height =
     size === "small"
       ? defaultStyles.sizes.buttonSmall
@@ -49,6 +49,7 @@ function BlockButton({ onPress, size, title, icon, color }) {
       textAlign: "center",
       color: textColor,
     },
+    disabled: { textDecorationLine: "line-through", fontWeight: "normal" },
   });
 
   return (
@@ -63,13 +64,21 @@ function BlockButton({ onPress, size, title, icon, color }) {
           suggestedColor={icon.suggestedColor}
         />
       )}
-      <TouchableOpacity
-        activeOpacity={clicks.clickOpacity}
-        style={styles.button}
-        onPress={onPress}
-      >
-        <ButtonText styles={styles.buttonText}>{title}</ButtonText>
-      </TouchableOpacity>
+      {disabled ? (
+        <View style={styles.button}>
+          <ButtonText styles={[styles.buttonText, styles.disabled]}>
+            {title}
+          </ButtonText>
+        </View>
+      ) : (
+        <TouchableOpacity
+          activeOpacity={clicks.clickOpacity}
+          style={styles.button}
+          onPress={onPress}
+        >
+          <ButtonText styles={styles.buttonText}>{title}</ButtonText>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

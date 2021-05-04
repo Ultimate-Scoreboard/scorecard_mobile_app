@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Alert } from "react-native";
 import * as StoreReview from "expo-store-review";
 import Toast from "react-native-toast-message";
+import { Audio } from "expo-av";
 
 import {
   Screen,
@@ -13,11 +14,15 @@ import {
   History,
   ScorecardSettings,
   BannerAd,
+  TimerHome,
+  TimerClock,
 } from "./../components";
 import { storageFunctions, allowables } from "../functions";
 import routes from "../navigation/routes";
+import SettingsContext from "./../context/settingsContext";
 
 function Scorecard({ navigation, route }) {
+  const { hideTimer } = useContext(SettingsContext);
   const [tab, setTab] = useState("main");
   const [score, setScore] = useState([]);
   const [type, setType] = useState("incrementer");
@@ -30,11 +35,38 @@ function Scorecard({ navigation, route }) {
     path: "",
     order: "",
   });
+  const [timeRemaining, setTimeRemaining] = useState(0);
+  const [countdownTime, setCountdownTime] = useState(0);
+  const [timerStarted, setTimerStarted] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (timerStarted) {
+      setTimeout(() => {
+        if (timerStarted) {
+          if (countdownTime) {
+            if (timeRemaining > 0) setTimeRemaining(timeRemaining - 1000);
+          } else setTimeRemaining(timeRemaining + 1000);
+        }
+      }, 1000);
+      if (countdownTime && timeRemaining === 0) {
+        playTimeoutSound();
+        setTimerStarted(false);
+      }
+    }
+  });
+
+  const playTimeoutSound = async () => {
+    await Audio.Sound.createAsync(
+      require("../../assets/sounds/shortBeep.wav"),
+      { shouldPlay: true }
+    );
+  };
 
   const multiplier = type === "countdown" ? -1 : 1;
   const tabs = [
     { name: "main", icon: "clipboard-text", iconType: "material" },
+    { name: "timer", icon: "progress-clock", iconType: "material" },
     { name: "help", icon: "help-circle", iconType: "material" },
   ];
   if (type === "tally" || type === "countdown")
@@ -466,6 +498,15 @@ function Scorecard({ navigation, route }) {
         </>
       ) : (
         <>
+          {!hideTimer && (tab === "main" || tab === "history") && (
+            <TimerClock
+              timeRemaining={timeRemaining}
+              setTimeRemaining={setTimeRemaining}
+              countdownTime={countdownTime}
+              timerStarted={timerStarted}
+              setTimerStarted={setTimerStarted}
+            />
+          )}
           {tab === "main" && (
             <>
               <Names
@@ -484,11 +525,23 @@ function Scorecard({ navigation, route }) {
             </>
           )}
           {tab === "history" && (
-            <History
-              score={score}
-              onCompleteEdit={setScoreFromHistory}
-              type={type}
-              initialValue={initialValue}
+            <>
+              <History
+                score={score}
+                onCompleteEdit={setScoreFromHistory}
+                type={type}
+                initialValue={initialValue}
+              />
+            </>
+          )}
+          {tab === "timer" && (
+            <TimerHome
+              timeRemaining={timeRemaining}
+              setTimeRemaining={setTimeRemaining}
+              countdownTime={countdownTime}
+              setCountdownTime={setCountdownTime}
+              timerStarted={timerStarted}
+              setTimerStarted={setTimerStarted}
             />
           )}
           {tab === "help" && (
