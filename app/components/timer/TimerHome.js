@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Keyboard, ScrollView } from "react-native";
 
 import TimerClock from "./TimerClock";
 import TimeSetter from "./TimeSetter";
@@ -12,7 +12,19 @@ function TimerHome({
   setCountdownTime,
   timerStarted,
   setTimerStarted,
+  resetTime,
 }) {
+  const [timeOpen, setTimeOpen] = useState(false);
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    return () => Keyboard.removeListener("keyboardDIdHide", _keyboardDidHide);
+  });
+  const _keyboardDidHide = () => {
+    setTimeOpen(false);
+  };
+
   const onSetCountdownTime = (time) => {
     if (isNaN(time.minutes) || isNaN(time.seconds)) return;
     const minutes = Number(time.minutes) * 60000;
@@ -20,16 +32,18 @@ function TimerHome({
     const totalTime = minutes + seconds;
     setCountdownTime(totalTime);
     setTimeRemaining(totalTime);
+    setTimeOpen(false);
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <TimerClock
         timeRemaining={timeRemaining}
         setTimeRemaining={setTimeRemaining}
         countdownTime={countdownTime}
         timerStarted={timerStarted}
         setTimerStarted={setTimerStarted}
+        resetTime={resetTime}
       />
       <View style={{ height: 25 }} />
       {!timerStarted ? (
@@ -37,6 +51,8 @@ function TimerHome({
           countdownTime={countdownTime}
           setCountdownTime={onSetCountdownTime}
           setTimerStarted={setTimerStarted}
+          timeOpen={timeOpen}
+          setTimeOpen={setTimeOpen}
         />
       ) : (
         <View style={{ height: 120 }} />
@@ -47,8 +63,9 @@ function TimerHome({
         countdownTime={countdownTime}
         setCountdownTime={setCountdownTime}
         setTimeRemaining={setTimeRemaining}
+        resetTime={resetTime}
       />
-    </View>
+    </ScrollView>
   );
 }
 

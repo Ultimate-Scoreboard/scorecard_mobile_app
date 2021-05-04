@@ -33,7 +33,7 @@ function ToggleSwitch({ current, onChange, title, subtitle }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flexDirection: "row", marginVertical: 10 },
+  container: { flexDirection: "row", marginVertical: 0 },
   switch: { flex: 0.2, marginRight: 15 },
   textContainer: {
     flex: 0.8,

@@ -38,29 +38,53 @@ function Scorecard({ navigation, route }) {
   const [timeRemaining, setTimeRemaining] = useState(0);
   const [countdownTime, setCountdownTime] = useState(0);
   const [timerStarted, setTimerStarted] = useState(false);
+  const [dtStart, setDtStart] = useState(0);
+  const [timeAtStart, setTimeAtStart] = useState(0);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     if (timerStarted) {
+      const timeNow = new Date().getTime();
+      const timeToAdd = timeNow - dtStart;
       setTimeout(() => {
         if (timerStarted) {
           if (countdownTime) {
-            if (timeRemaining > 0) setTimeRemaining(timeRemaining - 1000);
-          } else setTimeRemaining(timeRemaining + 1000);
+            if (timeRemaining > 0)
+              setTimeRemaining(
+                timeAtStart - timeToAdd > 0 ? timeAtStart - timeToAdd : 0
+              );
+          } else setTimeRemaining(timeAtStart + timeToAdd);
         }
-      }, 1000);
-      if (countdownTime && timeRemaining === 0) {
+      }, allowables.timeInterval);
+      if (countdownTime && timeRemaining <= 0) {
+        setTimeRemaining(countdownTime);
         playTimeoutSound();
         setTimerStarted(false);
       }
     }
   });
 
+  const startTimer = (bool, reset) => {
+    setTimerStarted(bool);
+    if (bool) {
+      setDtStart(new Date().getTime());
+      setTimeAtStart(reset ? countdownTime : timeRemaining);
+    }
+  };
+
   const playTimeoutSound = async () => {
-    await Audio.Sound.createAsync(
-      require("../../assets/sounds/shortBeep.wav"),
-      { shouldPlay: true }
-    );
+    try {
+      await Audio.Sound.createAsync(
+        require("../../assets/sounds/shortBeep.wav"),
+        { shouldPlay: true }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const resetTime = () => {
+    startTimer(true, true);
   };
 
   const multiplier = type === "countdown" ? -1 : 1;
@@ -429,6 +453,7 @@ function Scorecard({ navigation, route }) {
       position: "bottom",
       visibilityTime: 3000,
       bottomOffset: 100,
+      onPress: () => Toast.hide(),
     });
   };
 
@@ -504,7 +529,8 @@ function Scorecard({ navigation, route }) {
               setTimeRemaining={setTimeRemaining}
               countdownTime={countdownTime}
               timerStarted={timerStarted}
-              setTimerStarted={setTimerStarted}
+              setTimerStarted={startTimer}
+              resetTime={resetTime}
             />
           )}
           {tab === "main" && (
@@ -541,7 +567,8 @@ function Scorecard({ navigation, route }) {
               countdownTime={countdownTime}
               setCountdownTime={setCountdownTime}
               timerStarted={timerStarted}
-              setTimerStarted={setTimerStarted}
+              setTimerStarted={startTimer}
+              resetTime={resetTime}
             />
           )}
           {tab === "help" && (

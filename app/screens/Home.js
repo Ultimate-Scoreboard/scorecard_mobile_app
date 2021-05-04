@@ -101,7 +101,7 @@ function Home({ navigation }) {
       footer={
         <BlockButton
           title="Start"
-          color="btnInfo"
+          color="btnSuccess"
           onPress={() => handleConfirm("form")}
         />
       }

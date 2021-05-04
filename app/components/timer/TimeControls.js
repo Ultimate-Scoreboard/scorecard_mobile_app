@@ -9,35 +9,51 @@ function TimerControls({
   countdownTime,
   setCountdownTime,
   setTimeRemaining,
+  resetTime,
 }) {
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.third}>
-          <BlockButton
-            title="Reset"
-            color="btnPrimary"
-            onPress={() => setTimeRemaining(countdownTime)}
-            disabled={timerStarted}
-          />
-        </View>
-        <View style={styles.twoThird}>
-          <BlockButton
-            title={timerStarted ? "Stop" : "Start"}
-            color={timerStarted ? "btnLight" : "btnSuccess"}
-            onPress={() => setTimerStarted(!timerStarted)}
-          />
-        </View>
-      </View>
-      <View style={{ height: 50 }} />
       <BlockButton
-        title="Clear Timer"
+        title={timerStarted ? "Stop" : "Start"}
+        color={timerStarted ? "btnLight" : "btnSuccess"}
+        onPress={() => setTimerStarted(!timerStarted)}
+        icon={{
+          icon: timerStarted ? "pause-circle" : "play-circle",
+          iconType: "material",
+        }}
+      />
+      <BlockButton
+        title="Next Turn"
+        color="btnInfo"
+        onPress={() => resetTime()}
+        icon={{ icon: "skip-next-outline", iconType: "material" }}
+      />
+      <View style={{ height: 30 }} />
+      <BlockButton
+        title="Reset Countdown"
+        color="btnLight"
+        onPress={() => setTimeRemaining(countdownTime)}
+        icon={{
+          icon: "restart",
+          iconType: "material",
+        }}
+        disabled={timerStarted}
+        size="small"
+      />
+      <View style={{ height: 10 }} />
+      <BlockButton
+        title="Set to Zero"
         color="btnLight"
         onPress={() => {
           setTimeRemaining(0);
           setCountdownTime(0);
         }}
+        icon={{
+          icon: "numeric-0-box-outline",
+          iconType: "material",
+        }}
         disabled={timerStarted}
+        size="small"
       />
     </>
   );

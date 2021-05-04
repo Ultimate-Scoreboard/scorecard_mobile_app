@@ -51,7 +51,7 @@ function EnterPlayers({
       <View style={{ height: 15 }} />
       <BlockButton
         title="Reset Names"
-        color="btnPrimary"
+        color="btnLight"
         onPress={onResetNames}
         size="small"
       />

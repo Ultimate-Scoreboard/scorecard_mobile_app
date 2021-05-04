@@ -13,6 +13,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [hideRounds, setHideRounds] = useState(false);
   const [hideTimer, setHideTimer] = useState(false);
+  const [sound, setSound] = useState("shortBeep");
 
   const retrieveSettings = async () => {
     const darkMode = await storageFunctions.getAsyncStorage("darkMode");
@@ -21,6 +22,8 @@ export default function App() {
     if (hideRounds) setHideRounds(true);
     const hideTimer = await storageFunctions.getAsyncStorage("hideTimer");
     if (hideTimer) setHideTimer(true);
+    const sound = await storageFunctions.getAsyncStorage("sound");
+    if (sound) setSound(sound);
   };
 
   useEffect(() => {
@@ -50,6 +53,8 @@ export default function App() {
           setHideRounds,
           hideTimer,
           setHideTimer,
+          sound,
+          setSound,
         }}
       >
         <MainNavigator />

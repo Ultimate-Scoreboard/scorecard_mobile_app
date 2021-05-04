@@ -9,6 +9,7 @@ import {
   BlockButton,
   ScorecardSettings,
   ToggleSwitch,
+  SoundPicker,
 } from "../components";
 import SettingsContext from "./../context/settingsContext";
 
@@ -20,6 +21,8 @@ function Settings() {
     setHideRounds,
     hideTimer,
     setHideTimer,
+    sound,
+    setSound,
   } = useContext(SettingsContext);
 
   const handleToggle = async (id, onChange) => {
@@ -31,6 +34,10 @@ function Settings() {
       await storageFunctions.saveAsyncStorage(id, "on");
       onChange(true);
     }
+  };
+  const handleSelect = async (id, value, onChange) => {
+    await storageFunctions.saveAsyncStorage(id, value);
+    onChange(value);
   };
 
   const alertReset = () => {
@@ -61,7 +68,7 @@ function Settings() {
       onChange: setHideRounds,
       title: "Hide Round Numbers",
       subtitle:
-        "Whether to hide round numbers on the history tab for a Tally scorecard",
+        "Hide round numbers on the history tab for a Tally and Countdown scorecards",
     },
     {
       id: "hideTimer",
@@ -69,14 +76,20 @@ function Settings() {
       onChange: setHideTimer,
       title: "Hide Timer",
       subtitle:
-        "Whether to hide the timer on the Main and History tabs of the Scorecard screen",
+        "Hide the timer on the Main and History tabs of the Scorecard screen",
     },
   ];
 
   return (
     <Screen
       scroll={true}
-      footer={<BlockButton title="Reset And Clear" onPress={alertReset} />}
+      footer={
+        <BlockButton
+          title="Reset And Clear"
+          onPress={alertReset}
+          size="small"
+        />
+      }
     >
       <Header>Settings</Header>
       <Divider />
@@ -93,6 +106,11 @@ function Settings() {
           </View>
         );
       })}
+      <SoundPicker
+        selected={sound}
+        setSelected={(value) => handleSelect("sound", value, setSound)}
+      />
+      <Divider />
       <ScorecardSettings nonCard={true} />
     </Screen>
   );

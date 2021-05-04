@@ -19,7 +19,7 @@ function BasicModal({ visible, setVisible, header, footer, children }) {
             <BlockButton
               title="Close"
               onPress={() => setVisible(false)}
-              bolor="btnPrimary"
+              color="btnLight"
               size="small"
             />
             {header}

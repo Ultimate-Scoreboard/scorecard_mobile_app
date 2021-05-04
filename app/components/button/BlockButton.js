@@ -58,7 +58,7 @@ function BlockButton({ onPress, size, title, icon, color, disabled }) {
         <IconRender
           icon={icon.icon}
           iconType={icon.iconType}
-          iconSize={icon.iconSize}
+          iconSize={icon.iconSize || height / 2.6}
           color={textColor}
           style={styles.buttonIcon}
           suggestedColor={icon.suggestedColor}

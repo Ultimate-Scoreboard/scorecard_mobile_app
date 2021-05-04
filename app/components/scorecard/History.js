@@ -9,7 +9,7 @@ import AppInput from "./../form/AppInput";
 import SettingsContext from "./../../context/settingsContext";
 
 function History({ score, onCompleteEdit, type, initialValue }) {
-  const { showRounds } = useContext(SettingsContext);
+  const { hideRounds } = useContext(SettingsContext);
   const [edit, setEdit] = useState(null);
   const [editedScore, setEditedScore] = useState("");
   const highestRound = new Array(
@@ -31,7 +31,7 @@ function History({ score, onCompleteEdit, type, initialValue }) {
       <ScrollView horizontal={true}>
         <View>
           <View style={styles.container}>
-            {showRounds && (
+            {!hideRounds && (
               <View style={styles.round}>
                 <AppText style={[styles.headerText, styles.smallHeaderText]}>
                   Round
@@ -96,7 +96,7 @@ function History({ score, onCompleteEdit, type, initialValue }) {
           </View>
           <ScrollView>
             <View style={styles.container}>
-              {showRounds && (
+              {!hideRounds && (
                 <View style={styles.round}>
                   {highestRound.map((r, i) => {
                     return (

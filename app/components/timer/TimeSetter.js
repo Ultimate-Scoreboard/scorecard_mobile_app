@@ -1,14 +1,17 @@
 import React, { useState, useRef } from "react";
 import { StyleSheet, View } from "react-native";
 
-import { allowables } from "../../functions";
 import BlockButton from "./../button/BlockButton";
 import AppInput from "./../form/AppInput";
 import Toast from "react-native-toast-message";
 
-function TimeSetter({ countdownTime, setCountdownTime }) {
+function TimeSetter({
+  countdownTime,
+  setCountdownTime,
+  timeOpen,
+  setTimeOpen,
+}) {
   const secondsRef = useRef(null);
-  const [timeOpen, setTimeOpen] = useState(false);
   const [tempTime, setTempTime] = useState({
     minutes:
       Math.floor(countdownTime / (60 * 1000)) > 0
@@ -31,7 +34,8 @@ function TimeSetter({ countdownTime, setCountdownTime }) {
         text2: "Maximum allowable seconds is 59",
         position: "top",
         visibilityTime: 3000,
-        bottomOffset: 100,
+        topOffset: 175,
+        onPress: () => Toast.hide(),
       });
     }
     if (id === "minutes" && value > 5999) {
@@ -42,15 +46,12 @@ function TimeSetter({ countdownTime, setCountdownTime }) {
         text2: "Maximum allowable minutes is 5999 (99 hours, 99 minutes)",
         position: "top",
         visibilityTime: 3000,
-        bottomOffset: 100,
+        topOffset: 175,
+        onPress: () => Toast.hide(),
       });
     }
     currentTime[id] = value;
     setTempTime(currentTime);
-  };
-  const onSetCountdownTime = () => {
-    setCountdownTime(tempTime);
-    setTimeOpen(false);
   };
   const getPlaceholder = (id) => {
     const minutes = Math.floor(countdownTime / (60 * 1000));
@@ -70,12 +71,12 @@ function TimeSetter({ countdownTime, setCountdownTime }) {
   return (
     <>
       <BlockButton
-        title="Set Time"
+        title="Set Countdown Time"
         color="btnInfo"
         size="small"
         onPress={
           timeOpen
-            ? onSetCountdownTime
+            ? () => setCountdownTime(tempTime)
             : () => {
                 setTimeOpen(true);
               }
@@ -96,7 +97,7 @@ function TimeSetter({ countdownTime, setCountdownTime }) {
                   onSubmitEditing={
                     e.id === "minutes"
                       ? () => secondsRef.current.focus()
-                      : () => onSetCountdownTime(tempTime)
+                      : () => setCountdownTime(tempTime)
                   }
                   returnKeyType="done"
                   blurOnSubmit={e.id === "seconds"}

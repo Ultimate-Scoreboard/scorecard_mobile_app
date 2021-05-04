@@ -22,4 +22,5 @@ export { default as PullToRefresh } from "./common/PullToRefresh";
 export { default as BannerAd } from "./ads/BannerAd";
 export { default as TimerHome } from "./timer/TimerHome";
 export { default as TimerClock } from "./timer/TimerClock";
-export { default as ToggleSwitch } from "./common/ToggleSwitch";
+export { default as ToggleSwitch } from "./settings/ToggleSwitch";
+export { default as SoundPicker } from "./settings/SoundPicker";

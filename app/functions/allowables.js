@@ -38,12 +38,16 @@ const convertMS = (time) => {
   const hours = Math.floor(time / (1000 * 60 * 60));
   const minutes = Math.floor((time / (1000 * 60)) % 60);
   const seconds = Math.floor((time / 1000) % 60);
-  // const milliseconds = Math.floor((time % 1000) / 100);
+  const milliseconds = Math.floor((time % 1000) / 10);
 
   return `${hours > 0 ? addZero(hours) + ":" : ""}${
     minutes > 0 || hours > 0 ? addZero(minutes) + ":" : ""
-  }${minutes > 0 || hours > 0 ? addZero(seconds) : seconds}`;
+  }${minutes > 0 || hours > 0 ? addZero(seconds) : seconds}.${addZero(
+    milliseconds
+  )}`;
 };
+
+const timeInterval = 10;
 
 export default {
   capLetterOne,
@@ -51,4 +55,5 @@ export default {
   blankPlayer,
   convertTimestamp,
   convertMS,
+  timeInterval,
 };

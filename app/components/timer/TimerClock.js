@@ -2,24 +2,15 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import RoundedButton from "../button/RoundedButton";
-import { defaultStyles } from "../../config";
 import { allowables } from "../../functions";
 import AppText from "../text/AppText";
 
 function TimerClock({
   timeRemaining,
-  setTimeRemaining,
-  countdownTime,
   timerStarted,
   setTimerStarted,
+  resetTime,
 }) {
-  const resetTime = () => {
-    setTimerStarted(false);
-    setTimeout(() => {
-      setTimeRemaining(countdownTime);
-      setTimerStarted(true);
-    }, 1001);
-  };
   return (
     <View style={styles.container}>
       <>
@@ -31,14 +22,15 @@ function TimerClock({
             }}
             onPress={() => setTimerStarted(!timerStarted)}
             size="small"
-            color="btnLight"
+            color={timerStarted ? "btnLight" : "btnSuccess"}
           />
         </View>
         <View style={styles.next}>
           <RoundedButton
             icon={{ icon: "skip-next-outline", iconType: "material" }}
-            onPress={() => resetTime()}
+            onPress={resetTime}
             size="small"
+            color="btnInfo"
           />
         </View>
       </>
