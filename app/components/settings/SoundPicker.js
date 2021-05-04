@@ -1,33 +1,11 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
-import { Audio } from "expo-av";
+import { StyleSheet } from "react-native";
 
 import HorizontalButtons from "./../common/HorizontalButtons";
 import AppText from "./../text/AppText";
+import { sounds } from "../../functions";
 
 function SoundPicker({ selected, setSelected }) {
-  const playSound = async (file) => {
-    try {
-      if (file === "short")
-        await Audio.Sound.createAsync(
-          require(`../../../assets/sounds/shortBeep.wav`),
-          { shouldPlay: true }
-        );
-      else if (file === "medium")
-        await Audio.Sound.createAsync(
-          require(`../../../assets/sounds/longBuzzer.wav`),
-          { shouldPlay: true }
-        );
-      else if (file === "long")
-        await Audio.Sound.createAsync(
-          require(`../../../assets/sounds/longBuzzer.wav`),
-          { shouldPlay: true }
-        );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const buttons = [
     { icon: { icon: "volume-low", iconType: "material" }, id: "short" },
     {
@@ -41,7 +19,7 @@ function SoundPicker({ selected, setSelected }) {
   ];
 
   const handleSelect = (id) => {
-    playSound(id);
+    sounds.playSound(id);
     setSelected(id);
   };
 

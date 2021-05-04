@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from "react";
 import { StyleSheet, Alert } from "react-native";
 import * as StoreReview from "expo-store-review";
 import Toast from "react-native-toast-message";
-import { Audio } from "expo-av";
 
 import {
   Screen,
@@ -17,12 +16,12 @@ import {
   TimerHome,
   TimerClock,
 } from "./../components";
-import { storageFunctions, allowables } from "../functions";
+import { storageFunctions, allowables, sounds } from "../functions";
 import routes from "../navigation/routes";
 import SettingsContext from "./../context/settingsContext";
 
 function Scorecard({ navigation, route }) {
-  const { hideTimer } = useContext(SettingsContext);
+  const { hideTimer, sound } = useContext(SettingsContext);
   const [tab, setTab] = useState("main");
   const [score, setScore] = useState([]);
   const [type, setType] = useState("incrementer");
@@ -40,6 +39,7 @@ function Scorecard({ navigation, route }) {
   const [timerStarted, setTimerStarted] = useState(false);
   const [dtStart, setDtStart] = useState(0);
   const [timeAtStart, setTimeAtStart] = useState(0);
+  const [timesUp, setTimesUp] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -58,13 +58,15 @@ function Scorecard({ navigation, route }) {
       }, allowables.timeInterval);
       if (countdownTime && timeRemaining <= 0) {
         setTimeRemaining(countdownTime);
-        playTimeoutSound();
+        sounds.playSound(sound);
+        setTimesUp(true);
         setTimerStarted(false);
       }
     }
   });
 
   const startTimer = (bool, reset) => {
+    setTimesUp(false);
     setTimerStarted(bool);
     if (bool) {
       setDtStart(new Date().getTime());
@@ -72,18 +74,8 @@ function Scorecard({ navigation, route }) {
     }
   };
 
-  const playTimeoutSound = async () => {
-    try {
-      await Audio.Sound.createAsync(
-        require("../../assets/sounds/shortBeep.wav"),
-        { shouldPlay: true }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const resetTime = () => {
+    setTimesUp(false);
     startTimer(true, true);
   };
 
@@ -531,6 +523,7 @@ function Scorecard({ navigation, route }) {
               timerStarted={timerStarted}
               setTimerStarted={startTimer}
               resetTime={resetTime}
+              timesUp={timesUp}
             />
           )}
           {tab === "main" && (
@@ -569,6 +562,8 @@ function Scorecard({ navigation, route }) {
               timerStarted={timerStarted}
               setTimerStarted={startTimer}
               resetTime={resetTime}
+              timesUp={timesUp}
+              setTimesUp={setTimesUp}
             />
           )}
           {tab === "help" && (

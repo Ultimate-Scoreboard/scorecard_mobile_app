@@ -3,6 +3,7 @@ import { StyleSheet, View } from "react-native";
 
 import RoundedButton from "../button/RoundedButton";
 import { allowables } from "../../functions";
+import { defaultStyles } from "../../config";
 import AppText from "../text/AppText";
 
 function TimerClock({
@@ -10,9 +11,10 @@ function TimerClock({
   timerStarted,
   setTimerStarted,
   resetTime,
+  timesUp,
 }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, timesUp ? styles.timesUp : {}]}>
       <>
         <View style={styles.stop}>
           <RoundedButton
@@ -34,8 +36,8 @@ function TimerClock({
           />
         </View>
       </>
-      <View style={styles.timeContainer}>
-        <AppText style={styles.time}>
+      <View style={[styles.timeContainer, timesUp ? styles.timesUp : {}]}>
+        <AppText style={[styles.time, timesUp ? styles.timesUp : {}]}>
           {allowables.convertMS(timeRemaining)}
         </AppText>
       </View>
@@ -67,6 +69,10 @@ const styles = StyleSheet.create({
     left: 20,
     top: -5,
     zIndex: 99,
+  },
+  timesUp: {
+    backgroundColor: defaultStyles.colors.danger,
+    color: defaultStyles.colors.holdLight,
   },
 });
 

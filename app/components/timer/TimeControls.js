@@ -10,11 +10,12 @@ function TimerControls({
   setCountdownTime,
   setTimeRemaining,
   resetTime,
+  setTimesUp,
 }) {
   return (
     <>
       <BlockButton
-        title={timerStarted ? "Stop" : "Start"}
+        title={timerStarted ? "Pause" : "Start"}
         color={timerStarted ? "btnLight" : "btnSuccess"}
         onPress={() => setTimerStarted(!timerStarted)}
         icon={{
@@ -29,45 +30,49 @@ function TimerControls({
         icon={{ icon: "skip-next-outline", iconType: "material" }}
       />
       <View style={{ height: 30 }} />
-      <BlockButton
-        title="Reset Countdown"
-        color="btnLight"
-        onPress={() => setTimeRemaining(countdownTime)}
-        icon={{
-          icon: "restart",
-          iconType: "material",
-        }}
-        disabled={timerStarted}
-        size="small"
-      />
-      <View style={{ height: 10 }} />
-      <BlockButton
-        title="Set to Zero"
-        color="btnLight"
-        onPress={() => {
-          setTimeRemaining(0);
-          setCountdownTime(0);
-        }}
-        icon={{
-          icon: "numeric-0-box-outline",
-          iconType: "material",
-        }}
-        disabled={timerStarted}
-        size="small"
-      />
+      <View style={styles.container}>
+        <View style={styles.half}>
+          <BlockButton
+            title="Reset"
+            color="btnLight"
+            onPress={() => {
+              setTimeRemaining(countdownTime);
+              setTimesUp(false);
+            }}
+            icon={{
+              icon: "restart",
+              iconType: "material",
+            }}
+            disabled={timerStarted}
+            size="small"
+          />
+        </View>
+        <View style={styles.half}>
+          <BlockButton
+            title="Zero"
+            color="btnLight"
+            onPress={() => {
+              setTimeRemaining(0);
+              setCountdownTime(0);
+              setTimesUp(false);
+            }}
+            icon={{
+              icon: "numeric-0-box-outline",
+              iconType: "material",
+            }}
+            disabled={timerStarted}
+            size="small"
+          />
+        </View>
+      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  third: {
-    flex: 1 / 3,
-  },
-  twoThird: {
-    flex: 2 / 3,
+  container: { flexDirection: "row" },
+  half: {
+    flex: 0.5,
   },
 });
 

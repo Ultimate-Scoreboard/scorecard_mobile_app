@@ -76,7 +76,7 @@ function Settings() {
       onChange: setHideTimer,
       title: "Hide Timer",
       subtitle:
-        "Hide the timer on the Main and History tabs of the Scorecard screen",
+        "Hide the timer from the Main and History tabs of the Scorecard screen",
     },
   ];
 

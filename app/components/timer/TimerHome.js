@@ -13,6 +13,8 @@ function TimerHome({
   timerStarted,
   setTimerStarted,
   resetTime,
+  timesUp,
+  setTimesUp,
 }) {
   const [timeOpen, setTimeOpen] = useState(false);
 
@@ -33,6 +35,7 @@ function TimerHome({
     setCountdownTime(totalTime);
     setTimeRemaining(totalTime);
     setTimeOpen(false);
+    setTimesUp(false);
   };
 
   return (
@@ -44,6 +47,7 @@ function TimerHome({
         timerStarted={timerStarted}
         setTimerStarted={setTimerStarted}
         resetTime={resetTime}
+        timesUp={timesUp}
       />
       <View style={{ height: 25 }} />
       {!timerStarted ? (
@@ -64,6 +68,7 @@ function TimerHome({
         setCountdownTime={setCountdownTime}
         setTimeRemaining={setTimeRemaining}
         resetTime={resetTime}
+        setTimesUp={setTimesUp}
       />
     </ScrollView>
   );

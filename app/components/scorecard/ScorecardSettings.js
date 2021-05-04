@@ -55,6 +55,30 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         area below the last round for a player.
         {"\n"}
       </AppText>
+      <AppText style={styles.miniHeader}>Timer</AppText>
+      <AppText style={styles.text}>
+        The timer can be set to count up or down, depending on your preference.
+        {"\n"}
+        To set the timer to count up just tap the green Start button. Tap the
+        purple Next Turn button to keep the timer running but start over at
+        zero.
+        {"\n"}
+        To set the timer to count down go to the Timer tab and tab the Set
+        Countdown Time button. Set the countdown time in minutes and seconds and
+        tap done. Tap the green Start button and the timer will start counting
+        down. Tap the purple Next Turn button to keep the timer running but
+        reset the timer to the countdown time. When the timer reaches zero it
+        will turn red, a sound will play, and the timer will reset to the
+        countdown time. You can select a different sound on the Settings tab. To
+        revert back to counting up tap the Zero button.
+        {"\n"}
+        The timer will display at the top of the Main and History tabs and will
+        keep counting even as you enter scores or leave the app. You can set the
+        timer to only show on the Timer tab in Settings. If you do not have the
+        app up when the timer runs out the sound will play when you return to
+        the app. Closing the app will stop and remove your timer.
+        {"\n"}
+      </AppText>
       <AppText style={styles.miniHeader}>Sorting</AppText>
       <AppText style={styles.text}>
         From the Main tab you can sort by Name, Total Points or order in which

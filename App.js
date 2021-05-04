@@ -13,7 +13,7 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [hideRounds, setHideRounds] = useState(false);
   const [hideTimer, setHideTimer] = useState(false);
-  const [sound, setSound] = useState("shortBeep");
+  const [sound, setSound] = useState("short");
 
   const retrieveSettings = async () => {
     const darkMode = await storageFunctions.getAsyncStorage("darkMode");
