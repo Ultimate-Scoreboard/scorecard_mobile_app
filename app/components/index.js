@@ -24,3 +24,6 @@ export { default as TimerHome } from "./timer/TimerHome";
 export { default as TimerClock } from "./timer/TimerClock";
 export { default as ToggleSwitch } from "./settings/ToggleSwitch";
 export { default as SoundPicker } from "./settings/SoundPicker";
+export { default as Board } from "./sudoku/Board";
+export { default as SudokuInput } from "./sudoku/SudokuInput";
+export { default as SudokuOptions } from "./sudoku/SudokuOptions";

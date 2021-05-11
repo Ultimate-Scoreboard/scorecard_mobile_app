@@ -3,4 +3,5 @@ export default Object.freeze({
   SAVED: "Saved Cards",
   SCORECARD: "Scorecard",
   SETTINGS: "Settings",
+  SUDOKU: "Sudoku",
 });

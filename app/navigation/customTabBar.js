@@ -11,6 +11,7 @@ function CustomTabBar({ navigation, state }) {
     { name: routes.HOME, icon: "pluscircleo", iconType: "ant" },
     { name: routes.SAVED, icon: "save", iconType: "ant" },
     { name: routes.SETTINGS, icon: "setting", iconType: "ant" },
+    { name: routes.SUDOKU, icon: "checkerboard", iconType: "material" },
   ];
 
   return (
