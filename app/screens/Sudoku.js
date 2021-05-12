@@ -9,13 +9,14 @@ import {
   SudokuOptions,
   SudokuBoardButtons,
   SuperEasyModePopup,
+  SudokuHelp,
   HorizontalTabs,
   Header,
   BlockButton,
   BannerAd,
 } from "../components";
 
-function Sudoku({ navigation, route }) {
+function Sudoku({ route }) {
   const [difficulty, setDifficulty] = useState("easy");
   const [selected, setSelected] = useState(null);
   const [originalPuzzle, setOriginalPuzzle] = useState(null);
@@ -82,10 +83,11 @@ function Sudoku({ navigation, route }) {
     setTabs([
       {
         name: "board",
-        icon: "clipboard-text",
+        icon: "checkerboard",
         iconType: "material",
       },
-      { name: "options", icon: "help-circle", iconType: "material" },
+      { name: "options", icon: "setting", iconType: "ant" },
+      { name: "help", icon: "help-circle", iconType: "material" },
     ]);
     setTab("board");
     setSelected(null);
@@ -135,7 +137,7 @@ function Sudoku({ navigation, route }) {
     if (miniValues) {
       Alert.alert(
         "Note Mode Values",
-        "Some of your number are entered in note mode. How should these be handled?",
+        "Some of your numbers are entered in note mode. How should these be handled?",
         [
           { text: "Cancel" },
           { text: "Leave as Notes", onPress: () => alertCheckSolution(false) },
@@ -312,6 +314,11 @@ function Sudoku({ navigation, route }) {
             onResetPuzzle={handleResetPuzzle}
             onFillSolution={handleFillSolution}
           />
+        </ScrollView>
+      )}
+      {tab === "help" && (
+        <ScrollView>
+          <SudokuHelp />
         </ScrollView>
       )}
     </Screen>

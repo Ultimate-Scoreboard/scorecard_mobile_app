@@ -10,6 +10,7 @@ import {
   ScorecardSettings,
   ToggleSwitch,
   SoundPicker,
+  SudokuHelp,
 } from "../components";
 import SettingsContext from "./../context/settingsContext";
 
@@ -43,7 +44,7 @@ function Settings() {
   const alertReset = () => {
     Alert.alert(
       "Reset Everything",
-      "You are about to reset all settings and clear all saved scorecard information. Your current scorecard will remain available to continue until you close the app.\n\nDo you want to continue?",
+      "You are about to reset all settings and clear all saved scorecard and sudoku information. Your current scorecard and sudoku board will remain available to continue until you close the app.\n\nDo you want to continue?",
       [{ text: "No" }, { text: "Yes", onPress: () => handleReset() }],
       { cancelable: true }
     );
@@ -112,6 +113,7 @@ function Settings() {
       />
       <Divider />
       <ScorecardSettings nonCard={true} />
+      <SudokuHelp />
     </Screen>
   );
 }

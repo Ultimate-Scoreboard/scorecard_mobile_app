@@ -40,19 +40,14 @@ function SudokuBoardButtons({
       </View>
       {puzzleInProgress && (
         <View style={styles.container}>
-          <View style={styles.third}>
+          <View style={styles.half}>
             <AppText style={styles.infoHeader}>Difficulty</AppText>
             <AppText style={styles.text}>{getDifficulty()}</AppText>
           </View>
-          <View style={styles.third}>
-            <AppText style={styles.infoHeader}>Pre-filled Cells</AppText>
+          <View style={styles.half}>
+            <AppText style={styles.infoHeader}>Board ID</AppText>
             <AppText style={styles.text}>
-              {puzzleInProgress.filledSpaces}
-            </AppText>
-          </View>
-          <View style={styles.third}>
-            <AppText style={styles.infoHeader}>Board Number</AppText>
-            <AppText style={styles.text}>
+              {puzzleInProgress.filledSpaces}-
               {Number(puzzleInProgress.boardNumber) + 1}
             </AppText>
           </View>
@@ -65,7 +60,6 @@ function SudokuBoardButtons({
 const styles = StyleSheet.create({
   container: { flexDirection: "row", marginBottom: 10 },
   half: { flex: 0.5, justifyContent: "center" },
-  third: { flex: 1 / 3 },
   infoHeader: {
     textAlign: "center",
     fontSize: 14,

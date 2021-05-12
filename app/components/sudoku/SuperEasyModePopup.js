@@ -12,9 +12,15 @@ function SuperEasyModePopup({ numbers }) {
           flex: 1 / numbers.length,
           backgroundColor: i % 2 === 0 ? defaultStyles.colors.muted : "",
         };
+        const textStyle =
+          i % 2 === 0
+            ? {
+                color: defaultStyles.colors.holdDark,
+              }
+            : {};
         return (
           <View key={i} style={[style, styles.col]}>
-            <AppText style={styles.text}>{n}</AppText>
+            <AppText style={[styles.text, textStyle]}>{n}</AppText>
           </View>
         );
       })}

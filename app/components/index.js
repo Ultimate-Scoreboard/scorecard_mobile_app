@@ -29,3 +29,4 @@ export { default as SudokuInput } from "./sudoku/SudokuInput";
 export { default as SudokuOptions } from "./sudoku/SudokuOptions";
 export { default as SudokuBoardButtons } from "./sudoku/SudokuBoardButtons";
 export { default as SuperEasyModePopup } from "./sudoku/SuperEasyModePopup";
+export { default as SudokuHelp } from "./sudoku/SudokuHelp";

@@ -5,6 +5,7 @@ import AppPicker from "./../form/AppPicker";
 import ToggleSwitch from "./../settings/ToggleSwitch";
 import Divider from "./../common/Divider";
 import BlockButton from "./../button/BlockButton";
+import Sharing from "./../scorecard/Sharing";
 
 function SudokuOptions({
   puzzle,
@@ -44,17 +45,6 @@ function SudokuOptions({
 
   return (
     <View style={styles.container}>
-      <AppPicker
-        title="Select Difficulty:"
-        options={[
-          { label: "Easy", value: "easy" },
-          { label: "Medium", value: "medium" },
-          { label: "Hard", value: "hard" },
-        ]}
-        selected={difficulty}
-        setSelected={setDifficulty}
-        placeholder="Select Difficulty"
-      />
       <Divider />
       {toggles.map((t) => {
         return (
@@ -85,6 +75,20 @@ function SudokuOptions({
           <Divider />
         </>
       )}
+      <AppPicker
+        title="Select Difficulty:"
+        options={[
+          { label: "Easy", value: "easy" },
+          { label: "Medium", value: "medium" },
+          { label: "Hard", value: "hard" },
+        ]}
+        selected={difficulty}
+        setSelected={setDifficulty}
+        placeholder="Select Difficulty"
+      />
+      <Divider />
+      <Sharing />
+      <Divider />
     </View>
   );
 }
