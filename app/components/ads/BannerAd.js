@@ -4,10 +4,13 @@ import { AdMobBanner } from "expo-ads-admob";
 import Constants from "expo-constants";
 
 function BannerAd({ route }) {
-  const productionID = route.toLowerCase().includes("scorecard")
+  const lcRoute = route.toLowerCase();
+  const productionID = lcRoute.includes("scorecard")
     ? "ca-app-pub-6613892524077913/3385699092"
-    : route.toLowerCase().includes("saved")
+    : lcRoute.includes("saved")
     ? "ca-app-pub-6613892524077913/5572701124"
+    : lcRoute.includes("sudoku")
+    ? "ca-app-pub-6613892524077913/8662387562"
     : "";
   const testID = Constants.platform.android
     ? "ca-app-pub-3940256099942544/6300978111"

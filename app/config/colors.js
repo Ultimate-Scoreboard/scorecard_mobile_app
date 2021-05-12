@@ -1,10 +1,7 @@
 const light = "#f3e9fc";
 const dark = "#0d0316";
-// const primary = "#733e0c"; // brown
-// const primary = "#e9892f"; // orange
-const primary = "#660044"; // pink
-const success = "#009900"; // green
-// const success = "#ff9933"; // orange
+const primary = "#660044";
+const success = "#009900";
 const info = "#831fe0";
 const warning = "#e6e600";
 const danger = "#cc2900";

@@ -48,6 +48,7 @@ function BlockButton({ onPress, size, title, icon, color, disabled }) {
     buttonText: {
       textAlign: "center",
       color: textColor,
+      fontSize: size === "small" ? 18 : 25,
     },
     disabled: { textDecorationLine: "line-through", fontWeight: "normal" },
   });

@@ -27,7 +27,7 @@ function ToggleSwitch({ current, onChange, title, subtitle }) {
           />
         </View>
       </View>
-      <AppText style={styles.subText}>{subtitle}</AppText>
+      {subtitle ? <AppText style={styles.subText}>{subtitle}</AppText> : null}
     </>
   );
 }

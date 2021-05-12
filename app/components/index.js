@@ -27,3 +27,5 @@ export { default as SoundPicker } from "./settings/SoundPicker";
 export { default as Board } from "./sudoku/Board";
 export { default as SudokuInput } from "./sudoku/SudokuInput";
 export { default as SudokuOptions } from "./sudoku/SudokuOptions";
+export { default as SudokuBoardButtons } from "./sudoku/SudokuBoardButtons";
+export { default as SuperEasyModePopup } from "./sudoku/SuperEasyModePopup";

@@ -6,7 +6,7 @@ import AppText from "./../text/AppText";
 import SettingsContext from "./../../context/settingsContext";
 import { sudokuFunctions } from "../../functions";
 
-function Board({ puzzle, selected, onSelect }) {
+function Board({ puzzle, originalPuzzle, selected, onSelect }) {
   const { theme } = useContext(SettingsContext);
   return (
     <View style={styles.container}>
@@ -17,11 +17,13 @@ function Board({ puzzle, selected, onSelect }) {
               const isSelected =
                 selected && selected.row === i && selected.col === ii;
               const borderStyle = sudokuFunctions.getBorder(i, ii, theme.color);
+              const locked = originalPuzzle[i][ii] !== "";
               return (
                 <View
                   style={[
                     styles.column,
                     borderStyle,
+                    col.checked ? styles[col.checked] : {},
                     isSelected ? styles.selectedCell : {},
                   ]}
                   key={ii}
@@ -29,11 +31,15 @@ function Board({ puzzle, selected, onSelect }) {
                   <TouchableWithoutFeedback onPress={() => onSelect(i, ii)}>
                     <AppText
                       style={[
-                        styles.number,
+                        col.value && col.miniValue
+                          ? styles.miniValue
+                          : styles.number,
+                        col.checked ? styles[col.checked] : {},
                         isSelected ? styles.selectedText : {},
+                        locked ? styles.constant : {},
                       ]}
                     >
-                      {col}
+                      {col.value}
                     </AppText>
                   </TouchableWithoutFeedback>
                 </View>
@@ -48,7 +54,7 @@ function Board({ puzzle, selected, onSelect }) {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
+    marginVertical: 10,
     alignItems: "center",
   },
   row: {
@@ -61,6 +67,12 @@ const styles = StyleSheet.create({
   },
   number: {
     textAlign: "center",
+    fontSize: 20,
+  },
+  miniValue: {
+    fontSize: 12,
+    marginRight: 3,
+    textAlign: "right",
   },
   selectedCell: {
     backgroundColor: defaultStyles.colors.muted,
@@ -70,6 +82,16 @@ const styles = StyleSheet.create({
   },
   constant: {
     fontWeight: "bold",
+    fontSize: 18,
+    color: defaultStyles.colors.info,
+  },
+  correct: {
+    backgroundColor: defaultStyles.colors.success,
+    color: defaultStyles.colors.holdLight,
+  },
+  incorrect: {
+    backgroundColor: defaultStyles.colors.danger,
+    color: defaultStyles.colors.holdLight,
   },
 });
 
