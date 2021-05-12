@@ -7,6 +7,7 @@ import Home from "../screens/Home";
 import Scorecard from "../screens/Scorecard";
 import Settings from "./../screens/Settings";
 import Saved from "../screens/Saved";
+import Sudoku from "./../screens/Sudoku";
 
 const Tab = createBottomTabNavigator();
 
@@ -21,6 +22,7 @@ export default function MainNavigator() {
       <Tab.Screen name={routes.SCORECARD} component={Scorecard} />
       <Tab.Screen name={routes.SETTINGS} component={Settings} />
       <Tab.Screen name={routes.SAVED} component={Saved} />
+      <Tab.Screen name={routes.SUDOKU} component={Sudoku} />
     </Tab.Navigator>
   );
 }

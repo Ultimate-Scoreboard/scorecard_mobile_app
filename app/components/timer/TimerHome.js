@@ -21,7 +21,7 @@ function TimerHome({
   useEffect(() => {
     Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
 
-    return () => Keyboard.removeListener("keyboardDIdHide", _keyboardDidHide);
+    return () => Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
   });
   const _keyboardDidHide = () => {
     setTimeOpen(false);

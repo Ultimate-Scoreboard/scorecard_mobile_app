@@ -8,8 +8,9 @@ import { clicks, defaultStyles } from "../config";
 function CustomTabBar({ navigation, state }) {
   const tabs = [
     { name: routes.SCORECARD, icon: "star", iconType: "ant" },
-    { name: routes.HOME, icon: "pluscircleo", iconType: "ant" },
     { name: routes.SAVED, icon: "save", iconType: "ant" },
+    { name: routes.HOME, icon: "pluscircleo", iconType: "ant" },
+    { name: routes.SUDOKU, icon: "checkerboard", iconType: "material" },
     { name: routes.SETTINGS, icon: "setting", iconType: "ant" },
   ];
 

@@ -1,6 +1,7 @@
 export default Object.freeze({
-  HOME: "Create New",
-  SAVED: "Saved Cards",
+  HOME: "Create",
+  SAVED: "Saved",
   SCORECARD: "Scorecard",
   SETTINGS: "Settings",
+  SUDOKU: "Sudoku",
 });

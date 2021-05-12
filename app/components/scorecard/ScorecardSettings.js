@@ -21,7 +21,7 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
       <Sharing />
       <Divider />
 
-      <AppText style={styles.header}>Help</AppText>
+      <AppText style={styles.header}>Scorecard Help</AppText>
       <AppText style={styles.miniHeader}>Update Names</AppText>
       <AppText style={styles.text}>
         From the Main tab you can update a player by long pressing on their
@@ -35,6 +35,7 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         and right arrows to add or remove points. A long press on either arrow
         will increment or decrement the score by 10 points.
         {"\n"}
+        {"\n"}
         Tap the player name again to deselect them and hide the incrementer.
         {"\n"}
       </AppText>
@@ -44,12 +45,14 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         way is on the Main tab. Tap the player you need to update, enter their
         score for the round and hit Done on your keyboard.
         {"\n"}
+        {"\n"}
         If you need to edit a score from a previous round you can do so on the
         History tab. Select the score you want to edit to bring up the input.
         Enter the new score for the round and tap Done. If you want to delete
         that round entirely just leave the input blank and hit done. You will be
         asked to confirm and the round will be deleted. Any rounds remaining
         after the deleted round will shift up by one.
+        {"\n"}
         {"\n"}
         You can also enter new round scores from the History tab by tapping the
         area below the last round for a player.
@@ -59,9 +62,11 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
       <AppText style={styles.text}>
         The timer can be set to count up or down, depending on your preference.
         {"\n"}
+        {"\n"}
         To set the timer to count up just tap the green Start button. Tap the
         purple Next Turn button to keep the timer running but start over at
         zero.
+        {"\n"}
         {"\n"}
         To set the timer to count down go to the Timer tab and tab the Set
         Countdown Time button. Set the countdown time in minutes and seconds and
@@ -71,6 +76,7 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         will turn red, a sound will play, and the timer will reset to the
         countdown time. You can select a different sound on the Settings tab. To
         revert back to counting up tap the Zero button.
+        {"\n"}
         {"\n"}
         The timer will display at the top of the Main and History tabs and will
         keep counting even as you enter scores or leave the app. You can set the
@@ -85,6 +91,7 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         you entered the names by tapping on the header. Tap again to reverse the
         sort order.
         {"\n"}
+        {"\n"}
         For Tally scorecards this order will also apply to the History tab.
         {"\n"}
       </AppText>
@@ -93,12 +100,14 @@ function ScorecardSettings({ onResetScore, onSave, nonCard }) {
         All updates to the scorecard in progress are automatically saved after
         every change.
         {"\n"}
+        {"\n"}
         If you want to start a new scorecard but need to come back to your
         current card at a later time you can tap the Save this Card button
         above. The scorecard will be saved in its current state, and you are now
         free to start another card. Each card you start has a unique ID, so
         saving a scorecard you have already saved will overwrite the previous
         version.
+        {"\n"}
         {"\n"}
         On the Saved Cards tab you can view all of your saved scorecards. Tap on
         a card to expand and view the full scores. From here you can either jump

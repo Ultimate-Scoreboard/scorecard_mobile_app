@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import {
   Screen,
@@ -99,11 +99,13 @@ function Home({ navigation }) {
         </>
       }
       footer={
-        <BlockButton
-          title="Start"
-          color="btnSuccess"
-          onPress={() => handleConfirm("form")}
-        />
+        <>
+          <BlockButton
+            title="Start"
+            color="btnSuccess"
+            onPress={() => handleConfirm("form")}
+          />
+        </>
       }
     >
       <CreationForm
