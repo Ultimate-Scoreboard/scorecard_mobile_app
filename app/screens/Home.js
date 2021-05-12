@@ -101,12 +101,6 @@ function Home({ navigation }) {
       footer={
         <>
           <BlockButton
-            title="Play Sudoku"
-            color="btnPrimary"
-            onPress={() => navigation.navigate(routes.SUDOKU)}
-          />
-          <View style={{ height: 25 }} />
-          <BlockButton
             title="Start"
             color="btnSuccess"
             onPress={() => handleConfirm("form")}
