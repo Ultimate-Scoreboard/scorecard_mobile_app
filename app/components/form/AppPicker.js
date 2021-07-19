@@ -5,6 +5,7 @@ import { Picker } from "@react-native-picker/picker";
 import { defaultStyles } from "../../config";
 import SettingsContext from "./../../context/settingsContext";
 import AppText from "./../text/AppText";
+import { allowables } from "../../functions";
 
 function AppPicker({ title, options, selected, setSelected, placeholder }) {
   const { theme } = useContext(SettingsContext);
@@ -29,7 +30,7 @@ function AppPicker({ title, options, selected, setSelected, placeholder }) {
                 key={o.value}
                 label={o.label}
                 value={o.value}
-                color={theme.color}
+                color={allowables.devicePlatform() === "ios" ? theme.color : {}}
               />
             );
           })}
