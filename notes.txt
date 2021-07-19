@@ -11,9 +11,9 @@ The perfect app for your next game night.
 -At the end of your game you can reset the scores to zero and start over without re-entering all the player names.
 -Dark mode is available for easier viewing.
 
-adsfdf
 
------
-should be able to add ot remove players mid card
-should be able to add more players, up to 20? no cutoff? nvm, up to 99
-think about adding set scorer, but they can realistically just use the tally type
+
+SUDOKU
+enter mini numbers or muted color numbers
+select difficulty - easy: 49-38 medium: 31-37 hard: 24-30
+supereasy mode - when cell is selected give list of possible numbers

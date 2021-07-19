@@ -219,6 +219,18 @@ function Scorecard({ navigation, route }) {
       currentPlayer.points = [{ set: 1, points: value }];
     }
     if (type === "tally" || type === "countdown") {
+      if (isNaN(value)) {
+        Toast.show({
+          type: "error",
+          text1: "Invalid Entry",
+          text2: "Score entered must be a number",
+          position: "top",
+          visibilityTime: 2000,
+          bottomOffset: 100,
+          onPress: () => Toast.hide(),
+        });
+        return setSelectedPlayer(null);
+      }
       currentPlayer.points = [
         {
           set: 1,
@@ -299,9 +311,11 @@ function Scorecard({ navigation, route }) {
     );
   };
   const handleUndo = async (player, index) => {
-    const { currentScore, index: playerIndex, currentPlayer } = spreadToEdit(
-      player
-    );
+    const {
+      currentScore,
+      index: playerIndex,
+      currentPlayer,
+    } = spreadToEdit(player);
     let history = [...currentPlayer.history];
     currentPlayer.points = [
       {
