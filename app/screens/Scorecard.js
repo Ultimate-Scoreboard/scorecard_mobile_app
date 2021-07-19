@@ -106,7 +106,7 @@ function Scorecard({ navigation, route }) {
     let currentDate = await storageFunctions.getAsyncStorage("date");
     let currentSaved = await storageFunctions.getAsyncStorage("saved");
     if (currentScore && currentType) {
-      if (checkForParams())
+      if (checkForParams()) {
         Alert.alert(
           route.params.saved ? "Reload Scorecard" : "Start New Scorecard",
           `You already have a scorecard in progress. ${
@@ -127,7 +127,7 @@ function Scorecard({ navigation, route }) {
             { text: "Yes", onPress: () => startNewCard() },
           ]
         );
-      else
+      } else
         retrieveScore(
           currentScore,
           currentType,

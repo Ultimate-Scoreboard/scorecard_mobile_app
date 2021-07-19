@@ -5,6 +5,7 @@ import BlockButton from "./../button/BlockButton";
 import BasicModal from "../common/BasicModal";
 import AppInput from "./../form/AppInput";
 import SecondaryHeader from "./../text/SecondaryHeader";
+import { allowables } from "../../functions";
 
 function EnterPlayers({
   players,
@@ -29,7 +30,15 @@ function EnterPlayers({
       visible={visible}
       setVisible={setVisible}
       header={<SecondaryHeader>Enter Player/Team Names</SecondaryHeader>}
-      footer={<BlockButton title="Start" color="btnInfo" onPress={onConfirm} />}
+      footer={
+        allowables.devicePlatform() === "android" && (
+          <BlockButton
+            title="Start"
+            color="btnInfo"
+            onPress={() => onConfirm("players")}
+          />
+        )
+      }
     >
       {players.map((p, i) => {
         const finalField = i === players.length - 1;

@@ -19,13 +19,18 @@ function AppPicker({ title, options, selected, setSelected, placeholder }) {
           selectedValue={selected}
           onValueChange={(itemValue) => setSelected(itemValue)}
           style={theme}
-          itemStyle={theme}
+          itemStyle={[theme, styles.iosHeight]}
           mode="dialog"
           prompt={placeholder}
         >
           {options.map((o) => {
             return (
-              <Picker.Item key={o.value} label={o.label} value={o.value} />
+              <Picker.Item
+                key={o.value}
+                label={o.label}
+                value={o.value}
+                color={theme.color}
+              />
             );
           })}
         </Picker>
@@ -54,6 +59,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     flex: 0.65,
+  },
+  iosHeight: {
+    height: 100,
   },
 });
 

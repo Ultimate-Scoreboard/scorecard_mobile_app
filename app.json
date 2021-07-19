@@ -24,6 +24,7 @@
       "bundleIdentifier": "com.scorecard.ultimatescoreboard",
       "icon": "./assets/logos/icon.png",
       "buildNumber": "1.0.0",
+      "appStoreUrl": "https://apps.apple.com/us/app/ultimate-scorecard/id1565606580",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
       }

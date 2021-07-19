@@ -4,6 +4,7 @@ import { StyleSheet, View } from "react-native";
 import BlockButton from "./../button/BlockButton";
 import AppInput from "./../form/AppInput";
 import Toast from "react-native-toast-message";
+import { allowables } from "../../functions";
 
 function TimeSetter({
   countdownTime,
@@ -86,7 +87,7 @@ function TimeSetter({
         <View style={styles.container}>
           {[{ id: "minutes" }, { id: "seconds" }].map((e) => {
             return (
-              <View style={styles.third} key={e.id}>
+              <View style={styles.half} key={e.id}>
                 <AppInput
                   forwardedRef={e.id === "seconds" ? secondsRef : null}
                   autoFocus={e.id === "minutes"}
@@ -99,9 +100,13 @@ function TimeSetter({
                       ? () => secondsRef.current.focus()
                       : () => setCountdownTime(tempTime)
                   }
-                  returnKeyType="done"
                   blurOnSubmit={e.id === "seconds"}
-                  returnKeyType={e.id === "minutes" ? "next" : "done"}
+                  returnKeyType={
+                    e.id === "minutes" &&
+                    allowables.devicePlatform() === "android"
+                      ? "next"
+                      : "done"
+                  }
                 />
               </View>
             );
@@ -118,7 +123,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
   },
-  third: {
+  half: {
     flex: 0.5,
   },
 });

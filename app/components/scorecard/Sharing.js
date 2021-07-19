@@ -8,12 +8,12 @@ import AppText from "./../text/AppText";
 
 function Sharing() {
   const platform = Constants.platform;
+
   const onShare = async () => {
     let content = {
-      message: "I just had an awesome game night using Scorecard!",
+      message: "I just had an awesome game night using Scorecard!\n\n",
     };
-    let url =
-      "https://play.google.com/store/apps/details?id=com.scorecard.ultimatescoreboard";
+    let url = StoreReview.storeUrl();
     if ("android" in platform) {
       content.title = "Check out Scorecard on Google Play";
       content.message = content.message + "\n\n" + url;
@@ -37,11 +37,13 @@ function Sharing() {
           url =
             url.replace("https://play.google.com/store/apps/", "market://") +
             "&showAllReviews=true";
-        else if ("ios" in platform)
+        else if ("ios" in platform) {
           url = url.replace(
-            "https://apps.apple.com/app/apple-store/",
-            "itms-apps://itunes.apple.com/app/viewContentsUserReviews"
+            "https://apps.apple.com/us/",
+            "itms-apps://apps.apple.com/"
           );
+          url += "?action=write-review";
+        }
       }
       Linking.openURL(url);
     }

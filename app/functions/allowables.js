@@ -1,3 +1,5 @@
+import Constants from "expo-constants";
+
 const capLetterOne = (string) => {
   if (!string) return "";
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -49,6 +51,10 @@ const convertMS = (time) => {
 
 const timeInterval = 10;
 
+const devicePlatform = () => {
+  return Constants.platform.ios ? "ios" : "android";
+};
+
 export default {
   capLetterOne,
   truncName,
@@ -56,4 +62,5 @@ export default {
   convertTimestamp,
   convertMS,
   timeInterval,
+  devicePlatform,
 };
