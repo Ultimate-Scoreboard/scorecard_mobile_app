@@ -39,7 +39,7 @@ function Sharing() {
             "&showAllReviews=true";
         else if ("ios" in platform) {
           url = url.replace(
-            "https://apps.apple.com/us/",
+            "https://apps.apple.com/",
             "itms-apps://apps.apple.com/"
           );
           url += "?action=write-review";
