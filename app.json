@@ -4,7 +4,7 @@
     "slug": "Scorecard",
     "platforms": ["ios", "android", "web"],
     "privacy": "public",
-    "version": "2.0.0",
+    "version": "2.1.1",
     "orientation": "portrait",
     "description": "A versatile scorecard for game night",
     "icon": "./assets/logos/icon.png",
@@ -23,7 +23,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.scorecard.ultimatescoreboard",
       "icon": "./assets/logos/icon.png",
-      "buildNumber": "1.0.0",
+      "buildNumber": "1.1.1",
       "appStoreUrl": "https://apps.apple.com/app/ultimate-scorecard/id1565606580",
       "config": {
         "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
@@ -31,7 +31,7 @@
     },
     "android": {
       "package": "com.scorecard.ultimatescoreboard",
-      "versionCode": 9,
+      "versionCode": 10,
       "icon": "./assets/logos/icon.png",
       "adaptiveIcon": {
         "foregroundImage": "./assets/logos/adaptive-icon.png",
