@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useRef, useEffect, useState } from "react";
+import { View } from "react-native";
 
 import BlockButton from "./../button/BlockButton";
 import BasicModal from "../common/BasicModal";
@@ -15,14 +15,14 @@ function EnterPlayers({
   visible,
   setVisible,
 }) {
-  let refs = [];
-  players.forEach(() => {
-    refs.push(useRef(null));
-  });
+  const itemsRef = useRef([]);
+  useEffect(() => {
+    itemsRef.current = itemsRef.current.slice(0, players.length);
+  }, [players.length]);
 
   const handleNextField = (index, finalField) => {
     if (finalField) return;
-    refs[index + 1].current.focus();
+    itemsRef.current[index + 1].focus();
   };
 
   return (
@@ -50,9 +50,13 @@ function EnterPlayers({
             onChangeText={(value) => onEditPlayer(value, i)}
             placeholder={`Player ${String(i + 1)}`}
             keyboardType="default"
-            forwardedRef={refs[i]}
+            forwardedRef={(r) => (itemsRef.current[i] = r)}
             onSubmitEditing={() => handleNextField(i, finalField)}
-            returnKeyType={finalField ? "done" : "next"}
+            returnKeyType={
+              finalField || allowables.devicePlatform() === "ios"
+                ? "done"
+                : "next"
+            }
             blurOnSubmit={finalField}
           />
         );
@@ -67,17 +71,5 @@ function EnterPlayers({
     </BasicModal>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: "row",
-  },
-  back: {
-    flex: 0.4,
-  },
-  reset: {
-    flex: 0.6,
-  },
-});
 
 export default EnterPlayers;
