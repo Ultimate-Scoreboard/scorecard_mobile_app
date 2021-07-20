@@ -4,6 +4,7 @@ import { StyleSheet, View, TouchableOpacity } from "react-native";
 import { AppText, IconRender } from "./../components";
 import routes from "./routes";
 import { clicks, defaultStyles } from "../config";
+import { allowables } from "../functions";
 
 function CustomTabBar({ navigation, state }) {
   const tabs = [
@@ -15,7 +16,12 @@ function CustomTabBar({ navigation, state }) {
   ];
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { paddingBottom: allowables.devicePlatform() === "ios" ? 15 : 2 },
+      ]}
+    >
       {tabs.map((tab) => {
         const selected = state.routeNames[state.index] === tab.name;
         return (
@@ -58,7 +64,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: defaultStyles.colors.info,
     paddingTop: 3,
-    paddingBottom: 2,
+    // paddingBottom is set inline depending on device
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   divide: {
     flex: 0.5,
