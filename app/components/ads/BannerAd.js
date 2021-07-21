@@ -5,13 +5,31 @@ import Constants from "expo-constants";
 
 function BannerAd({ route }) {
   const lcRoute = route.toLowerCase();
-  const productionID = lcRoute.includes("scorecard")
-    ? "ca-app-pub-6613892524077913/3385699092"
-    : lcRoute.includes("saved")
-    ? "ca-app-pub-6613892524077913/5572701124"
-    : lcRoute.includes("sudoku")
-    ? "ca-app-pub-6613892524077913/8662387562"
-    : "";
+  const androidScorecard = "ca-app-pub-6613892524077913/3385699092";
+  const androidSaved = "ca-app-pub-6613892524077913/5572701124";
+  const androidSudoku = "ca-app-pub-6613892524077913/8662387562";
+  const iosScorecard = "ca-app-pub-6613892524077913/2617069954";
+  const iosSaved = "ca-app-pub-6613892524077913/8990906613";
+  const iosSudoku = "ca-app-pub-6613892524077913/2501805290";
+  let productionID;
+  if (Constants.platform.android) {
+    productionID = lcRoute.includes("scorecard")
+      ? androidScorecard
+      : lcRoute.includes("saved")
+      ? androidSaved
+      : lcRoute.includes("sudoku")
+      ? androidSudoku
+      : "";
+  } else {
+    productionID = lcRoute.includes("scorecard")
+      ? iosScorecard
+      : lcRoute.includes("saved")
+      ? iosSaved
+      : lcRoute.includes("sudoku")
+      ? iosSudoku
+      : "";
+  }
+
   const testID = Constants.platform.android
     ? "ca-app-pub-3940256099942544/6300978111"
     : "ca-app-pub-3940256099942544/2934735716";
