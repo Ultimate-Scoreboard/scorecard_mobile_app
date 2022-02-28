@@ -17,6 +17,9 @@ export default function MainNavigator() {
       initialRouteName={routes.HOME}
       tabBar={(props) => <CustomTabBar {...props} />}
       backBehavior="history"
+      screenOptions={{
+        headerShown: false,
+      }}
     >
       <Tab.Screen name={routes.HOME} component={Home} />
       <Tab.Screen name={routes.SCORECARD} component={Scorecard} />

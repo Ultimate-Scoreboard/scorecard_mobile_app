@@ -2,7 +2,11 @@
   "expo": {
     "name": "Scorecard",
     "slug": "Scorecard",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "privacy": "public",
     "version": "1.2.0",
     "orientation": "portrait",
@@ -18,7 +22,9 @@
       "checkAutomatically": "ON_LOAD",
       "fallbackToCacheTimeout": 5000
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.scorecard.ultimatescoreboard",
@@ -44,7 +50,6 @@
         "googleMobileAdsAppId": "ca-app-pub-6613892524077913~4890352456"
       }
     },
-    "sdkVersion": "40.0.0",
     "web": {
       "favicon": "./assets/icon.png"
     }
